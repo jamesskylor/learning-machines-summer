@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Learning Machines OS",
+  "short_name": "LM OS",
+  "description": "Replace every new tab with your Learning Machines OS — your daily hub for the 6-week camp.",
+  "version": "1.0.0",
+
+  "chrome_url_overrides": {
+    "newtab": "tab_override.html"
+  },
+
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "https://learningmachines.xyz/*",
+    "https://zwwsoobzqwkziywolxrt.supabase.co/*"
+  ],
+
+  "icons": {
+    "16":  "assets/16.png",
+    "48":  "assets/48.png",
+    "128": "assets/128.png"
+  },
+
+  "action": {
+    "default_icon": {
+      "16":  "assets/16.png",
+      "48":  "assets/48.png",
+      "128": "assets/128.png"
+    },
+    "default_title": "Learning Machines OS"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  }
+}

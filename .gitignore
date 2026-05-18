@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local dev
+_serve.py
+
+# Secrets / env (never commit these)
+.env
+.env.local
+*.env
+
+# Old mockup (not needed in production)
+os-mockup.html

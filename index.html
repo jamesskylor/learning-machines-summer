@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Machines Summer Engineering — Your story begins this summer</title>
+  <meta name="description" content="A free 6-week AI-native summer engineering program. Build a startup, a film, an album, or a research project — alongside hundreds of others." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Learning Machines Summer Engineering — Your story begins this summer" />
+  <meta property="og:description" content="A free 6-week AI-native summer engineering program. Build a startup, film, album, or research project alongside hundreds of others." />
+  <meta property="og:image" content="https://learningmachines.xyz/assets/hero-toronto.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..400&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Homemade+Apple&family=Caveat:wght@400;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-nav-color="light">
+
+  <!-- ============================================================
+       NAV PILL — persistent, color-adaptive (Apply Now stays black)
+       ============================================================ -->
+  <nav class="nav-pill" aria-label="Main">
+    <a href="/" class="nav-pill__logo" aria-label="Learning Machines home">
+      <svg viewBox="0 0 48 46" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+        <rect x="2" y="40" width="44" height="4" fill="currentColor"/>
+        <rect x="0" y="18" width="8" height="3" fill="currentColor"/>
+        <rect x="1" y="24" width="6" height="3" fill="currentColor"/>
+        <rect x="40" y="18" width="8" height="3" fill="currentColor"/>
+        <rect x="41" y="24" width="6" height="3" fill="currentColor"/>
+        <rect x="14" y="4" width="3" height="3" fill="currentColor"/>
+        <rect x="22" y="2" width="4" height="3" fill="currentColor"/>
+        <rect x="31" y="4" width="3" height="3" fill="currentColor"/>
+        <rect x="9"  y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="37" y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="16" y="8" width="16" height="3" fill="currentColor"/>
+        <rect x="13" y="10" width="3" height="3" fill="currentColor"/>
+        <rect x="32" y="10" width="3" height="3" fill="currentColor"/>
+        <rect x="11" y="13" width="3" height="22" fill="currentColor"/>
+        <rect x="34" y="13" width="3" height="22" fill="currentColor"/>
+        <rect x="13" y="35" width="3" height="3" fill="currentColor"/>
+        <rect x="32" y="35" width="3" height="3" fill="currentColor"/>
+        <rect x="16" y="37" width="16" height="3" fill="currentColor"/>
+        <rect x="22" y="8" width="4" height="30" fill="currentColor"/>
+        <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+        <rect x="17" y="17" width="3" height="3" fill="currentColor"/>
+        <rect x="14" y="20" width="3" height="3" fill="currentColor"/>
+        <rect x="14" y="28" width="3" height="3" fill="currentColor"/>
+        <rect x="17" y="31" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="14" width="3" height="3" fill="currentColor"/>
+        <rect x="28" y="17" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="20" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="28" width="3" height="3" fill="currentColor"/>
+        <rect x="28" y="31" width="3" height="3" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="nav-pill__links">
+      <a href="/about">About</a>
+      <a href="/demos">Demos</a>
+      <a href="#faq">FAQs</a>
+    </div>
+    <a href="https://learningmachines.fillout.com/summer-app" class="nav-pill__cta" data-apply-link target="_blank" rel="noopener">
+      Apply Now
+      <span class="nav-pill__cta-icon">
+        <svg viewBox="0 0 16 16" width="10" height="10" fill="none">
+          <path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+  </nav>
+
+  <div class="top-meta" aria-hidden="true">
+    <span class="top-meta__dot"></span>
+    <span id="local-time">--:-- PM</span>
+    <span>TOR</span>
+  </div>
+
+  <!-- ============================================================
+       HERO — taller than viewport. Bg pans from sky to water.
+       Tag block lives at the bottom (offscreen at scroll=0).
+       ============================================================ -->
+  <header class="hero" data-nav-color="light">
+    <div class="hero__bg"
+         data-day-image="assets/hero-toronto.png"
+         data-night-image="assets/hero-toronto-night.jpg"
+         aria-hidden="true"></div>
+
+    <div class="hero__title">
+      <h1 class="hero__title-pixel serif">Learning Machines<br/>Summer Camp</h1>
+    </div>
+
+    <!-- Bottom strip: card on the left, AI-native tag on the right.
+         Both live at the very bottom of the 145vh hero so they're
+         offscreen at scroll=0 and slide into view as the user scrolls. -->
+    <div class="hero__bottom">
+      <div class="hero__row">
+        <div class="hero__card-wrap">
+          <div class="hero__card">
+            <h2 class="serif">Compress a year into six weeks</h2>
+            <p>AI is a force multiplier moving faster than any other technological revolution. Learning Machines is a free 6 week AI native school to help bring your ideas into the world.</p>
+            <a href="https://learningmachines.fillout.com/summer-app" class="hero__card-cta" data-apply-link target="_blank" rel="noopener">
+              Apply Now
+              <svg viewBox="0 0 24 16" width="24" height="14" fill="none" aria-hidden="true">
+                <path d="M2 8h18M14 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>          </div>
+        </div>
+      </div>
+
+      <div class="hero__stats" aria-hidden="true">
+        <span class="hero__stat">
+          <svg class="hero__stat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 2.5C9.5 4 10.5 6 10.5 8s-1 4-2.5 5.5M8 2.5C6.5 4 5.5 6 5.5 8s1 4 2.5 5.5M2.5 8h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Online
+        </span>
+        <span class="hero__stat">
+          <svg class="hero__stat-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5.5v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          10+ hrs/week
+        </span>
+        <span class="hero__stat">
+          <span class="hero__stat-dollar" aria-hidden="true">$</span>
+          Free
+        </span>
+        <span class="hero__stat">
+          <svg class="hero__stat-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3.5" width="12" height="10.5" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 2v3M11 2v3M2 7h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Starts July 20
+        </span>
+      </div>
+    </div>
+
+    <!-- Tag: anchored at bottom-right of the 145vh hero — always stays put.
+         Hidden at scroll=0, appears as user scrolls down. The card
+         (hero__bottom) drifts down via fixed→absolute to meet it here. -->
+    <aside class="hero__tag" aria-hidden="true">
+          <div class="hero__tag-icon">
+            <svg viewBox="0 0 48 46" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <rect x="2" y="40" width="44" height="4" fill="currentColor"/>
+              <rect x="0" y="18" width="8" height="3" fill="currentColor"/>
+              <rect x="1" y="24" width="6" height="3" fill="currentColor"/>
+              <rect x="40" y="18" width="8" height="3" fill="currentColor"/>
+              <rect x="41" y="24" width="6" height="3" fill="currentColor"/>
+              <rect x="14" y="4" width="3" height="3" fill="currentColor"/>
+              <rect x="22" y="2" width="4" height="3" fill="currentColor"/>
+              <rect x="31" y="4" width="3" height="3" fill="currentColor"/>
+              <rect x="9"  y="8" width="2" height="2" fill="currentColor"/>
+              <rect x="37" y="8" width="2" height="2" fill="currentColor"/>
+              <rect x="16" y="8" width="16" height="3" fill="currentColor"/>
+              <rect x="13" y="10" width="3" height="3" fill="currentColor"/>
+              <rect x="32" y="10" width="3" height="3" fill="currentColor"/>
+              <rect x="11" y="13" width="3" height="22" fill="currentColor"/>
+              <rect x="34" y="13" width="3" height="22" fill="currentColor"/>
+              <rect x="13" y="35" width="3" height="3" fill="currentColor"/>
+              <rect x="32" y="35" width="3" height="3" fill="currentColor"/>
+              <rect x="16" y="37" width="16" height="3" fill="currentColor"/>
+              <rect x="22" y="8" width="4" height="30" fill="currentColor"/>
+              <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+              <rect x="17" y="17" width="3" height="3" fill="currentColor"/>
+              <rect x="14" y="20" width="3" height="3" fill="currentColor"/>
+              <rect x="14" y="28" width="3" height="3" fill="currentColor"/>
+              <rect x="17" y="31" width="3" height="3" fill="currentColor"/>
+              <rect x="31" y="14" width="3" height="3" fill="currentColor"/>
+              <rect x="28" y="17" width="3" height="3" fill="currentColor"/>
+              <rect x="31" y="20" width="3" height="3" fill="currentColor"/>
+              <rect x="31" y="28" width="3" height="3" fill="currentColor"/>
+              <rect x="28" y="31" width="3" height="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <p class="hero__tag-tagline">One summer to engineer<br/>the life you want.</p>
+          <p class="hero__tag-sub">AI-native schools are on the horizon. We're building one for students who refuse to spend another summer waiting for permission.</p>
+        </aside>
+  </header>
+
+  <!-- ============================================================
+       DARK SECTION 1 — "Your story begins this summer."
+       Sticky text + VERTICAL auto-scrolling student cards
+       ============================================================ -->
+  <section class="dark-section dark-section--vertical-marquee reveal" data-nav-color="dark">
+    <div class="container">
+      <div class="dark-section__text">
+        <h2 class="serif">Your story begins<br/>this summer.</h2>
+        <p>This is where you'll take any idea you're excited about, figure out how to bring it to life, and turn it into something people actually care about — alongside hundreds of others.</p>
+
+        <div class="dark-alumni">
+          <p class="dark-alumni__label">Access mentors &amp; alumni from</p>
+          <div class="dark-alumni__grid">
+
+            <!-- Google -->
+            <div class="dark-alumni__item">
+              <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span>Google</span>
+            </div>
+
+            <!-- Microsoft -->
+            <div class="dark-alumni__item">
+              <svg viewBox="0 0 22 22" aria-hidden="true" width="20" height="20">
+                <rect x="0" y="0" width="10.5" height="10.5" fill="#F25022"/>
+                <rect x="11.5" y="0" width="10.5" height="10.5" fill="#7FBA00"/>
+                <rect x="0" y="11.5" width="10.5" height="10.5" fill="#00A4EF"/>
+                <rect x="11.5" y="11.5" width="10.5" height="10.5" fill="#FFB900"/>
+              </svg>
+              <span>Microsoft</span>
+            </div>
+
+            <!-- Y Combinator -->
+            <div class="dark-alumni__item">
+              <svg viewBox="0 0 34 34" aria-hidden="true" width="24" height="24" fill="none">
+                <rect width="34" height="34" rx="6" fill="#FB651E"/>
+                <path d="M10 9 L17 20 L24 9" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="17" y1="20" x2="17" y2="26.5" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+              </svg>
+              <span>Y Combinator</span>
+            </div>
+
+            <!-- Shopify -->
+            <div class="dark-alumni__item">
+              <svg viewBox="0 0 44 52" aria-hidden="true" width="20" height="24" fill="none">
+                <!-- left handle -->
+                <path d="M14 17 C14 10 16.5 7 22 7 C27.5 7 30 10 30 17" stroke="#5E8E3E" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <!-- bag body -->
+                <path d="M5 17 L3 50 H41 L39 17 Z" fill="#96BF48"/>
+                <!-- right shadow -->
+                <path d="M34 17 L39 17 L41 50 H36 Z" fill="#5E8E3E"/>
+                <!-- S letterform -->
+                <path d="M29.5 28 C28.5 24.5 25.5 23 22 23 C17.5 23 15.5 25.5 16.5 28.5 C17.5 31.5 23.5 32.5 25.5 35 C27.5 37.5 26 41 22 41.5 C19 41.9 16.5 40 15.5 37.5" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              </svg>
+              <span>Shopify</span>
+            </div>
+
+            <!-- OpenAI (official path) -->
+            <div class="dark-alumni__item">
+              <svg viewBox="0 0 41 41" aria-hidden="true" width="22" height="22" fill="rgba(255,255,255,0.88)">
+                <path d="M37.532 16.87a9.963 9.963 0 00-.856-8.184 10.078 10.078 0 00-10.855-4.835 9.964 9.964 0 00-7.505-3.348 10.079 10.079 0 00-9.612 6.977 9.967 9.967 0 00-6.664 4.834 10.08 10.08 0 001.24 11.817 9.965 9.965 0 00.856 8.185 10.079 10.079 0 0010.855 4.835 9.965 9.965 0 007.504 3.347 10.078 10.078 0 009.617-6.981 9.967 9.967 0 006.663-4.834 10.079 10.079 0 00-1.243-11.813zM22.498 37.886a7.474 7.474 0 01-4.799-1.735c.061-.033.168-.091.237-.134l7.964-4.6a1.294 1.294 0 00.655-1.134V19.054l3.366 1.944a.12.12 0 01.066.092v9.299a7.505 7.505 0 01-7.49 7.496zM6.392 31.006a7.471 7.471 0 01-.894-5.023c.06.036.162.099.237.141l7.964 4.6a1.297 1.297 0 001.308 0l9.724-5.614v3.888a.12.12 0 01-.048.103l-8.051 4.649a7.504 7.504 0 01-10.24-2.744zM4.297 13.62A7.469 7.469 0 018.2 10.333c0 .068-.004.19-.004.274v9.201a1.294 1.294 0 00.654 1.132l9.723 5.614-3.366 1.944a.12.12 0 01-.114.012L7.044 23.86a7.504 7.504 0 01-2.747-10.24zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 01.114-.012l8.048 4.648a7.498 7.498 0 01-1.158 13.528v-9.476a1.293 1.293 0 00-.647-1.13zm3.35-5.043c-.059-.037-.162-.099-.236-.141l-7.965-4.6a1.298 1.298 0 00-1.308 0l-9.723 5.614v-3.888a.12.12 0 01.048-.103l8.05-4.645a7.497 7.497 0 0111.135 7.763zm-21.063 6.929l-3.367-1.944a.12.12 0 01-.065-.092v-9.299a7.497 7.497 0 0112.293-5.756 6.94 6.94 0 00-.236.134l-7.965 4.6a1.294 1.294 0 00-.654 1.132l-.006 11.225zm1.829-3.943l4.33-2.501 4.332 2.5v4.999l-4.331 2.5-4.331-2.5V18z"/>
+              </svg>
+              <span>OpenAI</span>
+            </div>
+
+            <!-- Andreessen Horowitz (a16z) -->
+            <div class="dark-alumni__item">
+              <svg viewBox="0 0 22 22" aria-hidden="true" width="22" height="22" fill="none">
+                <!-- Dark rounded background -->
+                <rect width="22" height="22" rx="5" fill="#0f0f13"/>
+                <!-- White 4-pointed sparkle / north star (a16z brand mark) -->
+                <path d="M11 2.5 C11.4 8.4 12.6 9.6 18.5 10 C12.6 10.4 11.4 11.6 11 17.5 C10.6 11.6 9.4 10.4 3.5 10 C9.4 9.6 10.6 8.4 11 2.5 Z" fill="white" transform="translate(0 1)"/>
+              </svg>
+              <span>Andreessen Horowitz</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="story-column" aria-hidden="true">
+        <div class="story-column__track">
+          <!-- 6 unique student-style portrait cards, duplicated for seamless loop -->
+          <div class="story-card">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">I'm telling stories on Instagram.</div>
+          </div>
+          <div class="story-card">
+            <img src="https://images.unsplash.com/photo-1567515004624-219c11d31f2e?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">Creating sustainable wedding services.</div>
+          </div>
+          <div class="story-card">
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">An adventure story told through animatic videos.</div>
+          </div>
+          <div class="story-card">
+            <img src="https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">A tool to generate copyright-free music.</div>
+          </div>
+          <div class="story-card">
+            <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">A generative dashboard for your apps.</div>
+          </div>
+          <div class="story-card">
+            <img src="https://images.unsplash.com/photo-1517630800677-932d836ab680?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">Building a computer made of biological neurons.</div>
+          </div>
+          <!-- Duplicated set -->
+          <div class="story-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">I'm telling stories on Instagram.</div>
+          </div>
+          <div class="story-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1567515004624-219c11d31f2e?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">Creating sustainable wedding services.</div>
+          </div>
+          <div class="story-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">An adventure story told through animatic videos.</div>
+          </div>
+          <div class="story-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">A tool to generate copyright-free music.</div>
+          </div>
+          <div class="story-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">A generative dashboard for your apps.</div>
+          </div>
+          <div class="story-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1517630800677-932d836ab680?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+            <div class="story-card__caption">Building a computer made of biological neurons.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DARK SECTION 2 — "Work on ideas that excite you"
+       Centered text + HORIZONTAL auto-scrolling student cards
+       ============================================================ -->
+  <section class="dark-section dark-section--horizontal-marquee reveal" data-nav-color="dark">
+    <div class="container">
+      <div class="dark-section__text">
+        <h2 class="serif">Work on ideas<br/>that excite you.</h2>
+        <p>Come build a startup, a movie, an album, or a research project. We don't care what shape your dream takes. We care that you ship it this summer and become someone your future self would be proud of.</p>
+      </div>
+    </div>
+
+    <div class="idea-row" aria-hidden="true">
+      <div class="idea-row__track">
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">I wanna make a film.</div>
+        </div>
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">I want to make robots.</div>
+        </div>
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">An LLM for video editing.</div>
+        </div>
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">A startup for indie musicians.</div>
+        </div>
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">A research lab in a garage.</div>
+        </div>
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">A graphic novel about climate.</div>
+        </div>
+        <!-- duplicate set -->
+        <div class="story-card" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">I wanna make a film.</div>
+        </div>
+        <div class="story-card" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">I want to make robots.</div>
+        </div>
+        <div class="story-card" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">An LLM for video editing.</div>
+        </div>
+        <div class="story-card" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">A startup for indie musicians.</div>
+        </div>
+        <div class="story-card" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">A research lab in a garage.</div>
+        </div>
+        <div class="story-card" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&q=80&auto=format&fit=crop&crop=faces" alt="" loading="lazy" />
+          <div class="story-card__caption">A graphic novel about climate.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WEEKLY CADENCE
+       ============================================================ -->
+  <section class="cadence reveal" data-nav-color="dark">
+    <div class="cadence__intro">
+      <h2 class="serif">Access weekly lectures, office hours, guest talks, and updates.</h2>
+      <p>Our first lecture helps you find your fascination and pick an idea to pursue. We show you how to leverage AI to build it, launch, acquire customers, get feedback, and iterate. We provide a ton of tactics and support, but our main goal is to get you making progress alongside hundreds of others. At the end, we come together online for demo day and meet IRL in Toronto.</p>
+      <div class="cadence__not"><strong>Heads up:</strong> this is <em>not</em> a bootcamp, course, or step-by-step tutorial.</div>
+    </div>
+
+    <div class="weeks-strip" aria-hidden="true">
+      <div class="weeks-strip__track">
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 1</span> Idea</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 2</span> Build</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 3</span> Launch</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 4</span> Feedback + Iterate</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 5</span> Growth &amp; Monetization</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 6</span> Demo Day</div>
+        <!-- duplicated for seamless loop -->
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 1</span> Idea</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 2</span> Build</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 3</span> Launch</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 4</span> Feedback + Iterate</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 5</span> Growth &amp; Monetization</div>
+        <div class="weeks-strip__item"><span class="weeks-strip__item-num">Week 6</span> Demo Day</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+       ============================================================ -->
+  <section class="faq reveal" id="faq" data-nav-color="cream">
+    <div class="container">
+      <div class="faq__inner">
+        <span class="faq__eyebrow">
+          <svg viewBox="0 0 48 46" xmlns="http://www.w3.org/2000/svg" width="22" height="22" aria-hidden="true">
+            <rect x="2" y="40" width="44" height="4" fill="currentColor"/>
+            <rect x="0" y="18" width="8" height="3" fill="currentColor"/>
+            <rect x="1" y="24" width="6" height="3" fill="currentColor"/>
+            <rect x="40" y="18" width="8" height="3" fill="currentColor"/>
+            <rect x="41" y="24" width="6" height="3" fill="currentColor"/>
+            <rect x="14" y="4" width="3" height="3" fill="currentColor"/>
+            <rect x="22" y="2" width="4" height="3" fill="currentColor"/>
+            <rect x="31" y="4" width="3" height="3" fill="currentColor"/>
+            <rect x="9"  y="8" width="2" height="2" fill="currentColor"/>
+            <rect x="37" y="8" width="2" height="2" fill="currentColor"/>
+            <rect x="16" y="8" width="16" height="3" fill="currentColor"/>
+            <rect x="13" y="10" width="3" height="3" fill="currentColor"/>
+            <rect x="32" y="10" width="3" height="3" fill="currentColor"/>
+            <rect x="11" y="13" width="3" height="22" fill="currentColor"/>
+            <rect x="34" y="13" width="3" height="22" fill="currentColor"/>
+            <rect x="13" y="35" width="3" height="3" fill="currentColor"/>
+            <rect x="32" y="35" width="3" height="3" fill="currentColor"/>
+            <rect x="16" y="37" width="16" height="3" fill="currentColor"/>
+            <rect x="22" y="8" width="4" height="30" fill="currentColor"/>
+            <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+            <rect x="17" y="17" width="3" height="3" fill="currentColor"/>
+            <rect x="14" y="20" width="3" height="3" fill="currentColor"/>
+            <rect x="14" y="28" width="3" height="3" fill="currentColor"/>
+            <rect x="17" y="31" width="3" height="3" fill="currentColor"/>
+            <rect x="31" y="14" width="3" height="3" fill="currentColor"/>
+            <rect x="28" y="17" width="3" height="3" fill="currentColor"/>
+            <rect x="31" y="20" width="3" height="3" fill="currentColor"/>
+            <rect x="31" y="28" width="3" height="3" fill="currentColor"/>
+            <rect x="28" y="31" width="3" height="3" fill="currentColor"/>
+          </svg>
+        </span>
+        <h2 class="serif">FAQs</h2>
+
+        <ul class="faq__list" id="faq-list">
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">When is Summer Camp?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">Summer Camp '26 runs for six weeks, July 20 to August 31, 2026. The program is 100% online for the duration, ending with an optional in-person demo day in Toronto.</div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Who is eligible to attend?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">Anyone, anywhere. Students, working professionals, career switchers, makers, dropouts, retirees. If you have an idea you're excited about and can carve out time each week to work on it, you're eligible. Ten hours a week is a solid baseline. The more you put in, the more you get out.</div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Is there a cost to attend?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">No. Summer Camp is completely free. We don't take any equity or any ownership in what you create.</div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Is it really free?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">Yes, really. The program, the lectures, the community access, all of it. The only thing that costs money is travel + accommodations if you decide to come to the in-person demo day at the end. That's optional. <a href="/about">Read more about how Learning Machines is built →</a></div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Is this remote or IRL?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">100% online for 6 weeks. It ends with a virtual demo day and a 1-day IRL event in Toronto. If you can come, you should! If not, all good. It's optional.</div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Are my expenses covered for the IRL event?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">No. You'd be responsible for your flight + accommodations. But don't let this hold you back. The IRL event is optional. You can still build great things no matter where you are.</div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Is it part-time or full-time?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">Part-time. The program is designed around nights and weekends, structured enough to keep you moving, flexible enough to fit around a job, school, or life. Ten hours a week is a solid starting point, but there's no ceiling. The more you invest, the stronger your project will be by demo day. <a href="/about" style="text-decoration: underline;">Learn more about our story here.</a></div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">What if I miss a lecture? Will these be recorded?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">Yes, all live talks and lectures are recorded, and the replays go up the same day. Watch on your own schedule.</div>
+          </li>
+          <li class="faq__item" aria-expanded="false">
+            <button class="faq__q">Can I do this with friends as a team?<span class="faq__q-mark">+</span></button>
+            <div class="faq__a">Yes. Team up with whoever you want. There's no formal team registration. Everyone still submits their own weekly update, but you're free to collaborate on the same project.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CLOSING — GI-style: logo icon, big serif title, CTA below
+       ============================================================ -->
+  <section class="closing reveal" id="apply" data-nav-color="cream">
+    <div class="container">
+      <div class="closing__col">
+        <div class="closing__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 46" xmlns="http://www.w3.org/2000/svg" width="26" height="26">
+            <rect x="2" y="40" width="44" height="4" fill="currentColor"/>
+            <rect x="0" y="18" width="8" height="3" fill="currentColor"/>
+            <rect x="1" y="24" width="6" height="3" fill="currentColor"/>
+            <rect x="40" y="18" width="8" height="3" fill="currentColor"/>
+            <rect x="41" y="24" width="6" height="3" fill="currentColor"/>
+            <rect x="14" y="4" width="3" height="3" fill="currentColor"/>
+            <rect x="22" y="2" width="4" height="3" fill="currentColor"/>
+            <rect x="31" y="4" width="3" height="3" fill="currentColor"/>
+            <rect x="9"  y="8" width="2" height="2" fill="currentColor"/>
+            <rect x="37" y="8" width="2" height="2" fill="currentColor"/>
+            <rect x="16" y="8" width="16" height="3" fill="currentColor"/>
+            <rect x="13" y="10" width="3" height="3" fill="currentColor"/>
+            <rect x="32" y="10" width="3" height="3" fill="currentColor"/>
+            <rect x="11" y="13" width="3" height="22" fill="currentColor"/>
+            <rect x="34" y="13" width="3" height="22" fill="currentColor"/>
+            <rect x="13" y="35" width="3" height="3" fill="currentColor"/>
+            <rect x="32" y="35" width="3" height="3" fill="currentColor"/>
+            <rect x="16" y="37" width="16" height="3" fill="currentColor"/>
+            <rect x="22" y="8" width="4" height="30" fill="currentColor"/>
+            <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+            <rect x="17" y="17" width="3" height="3" fill="currentColor"/>
+            <rect x="14" y="20" width="3" height="3" fill="currentColor"/>
+            <rect x="14" y="28" width="3" height="3" fill="currentColor"/>
+            <rect x="17" y="31" width="3" height="3" fill="currentColor"/>
+            <rect x="31" y="14" width="3" height="3" fill="currentColor"/>
+            <rect x="28" y="17" width="3" height="3" fill="currentColor"/>
+            <rect x="31" y="20" width="3" height="3" fill="currentColor"/>
+            <rect x="31" y="28" width="3" height="3" fill="currentColor"/>
+            <rect x="28" y="31" width="3" height="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <h2 class="serif">6 weeks to bring<br/>your ideas into the world</h2>
+        <a class="closing__inline" href="https://learningmachines.fillout.com/summer-app" data-apply-link target="_blank" rel="noopener">
+          Apply Now
+          <span class="closing__inline-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 16" width="22" height="14" fill="none">
+              <path d="M2 8h18M14 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER — clean two-column row + double divider + full-width art
+       ============================================================ -->
+  <footer class="foot" data-nav-color="cream">
+    <div class="foot__row">
+      <nav class="foot__nav" aria-label="Footer">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/demos">Demos</a>
+        <a href="/#faq">FAQs</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+      <div class="foot__right">
+        <form class="foot__signup" id="email-signup" novalidate>
+          <input
+            type="email"
+            name="email"
+            placeholder="Get updates in your inbox"
+            aria-label="Email address"
+            required
+          />
+          <button type="submit" aria-label="Subscribe">
+            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" aria-hidden="true">
+              <path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+        <div class="foot__social">
+          <a href="https://x.com/skylorlane" aria-label="X / Twitter" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 3H21l-6.51 7.444L22 21h-6.797l-4.785-6.066L4.8 21H2l7.013-8.02L2.5 3h6.961l4.314 5.572L18.244 3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/skylorlane/" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zM8 8h4.37v1.91h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 7v9.45h-4.56v-8.38c0-2-.04-4.57-2.79-4.57-2.79 0-3.21 2.18-3.21 4.43V22H8V8z"/></svg>
+          </a>
+          <a href="https://skylor.substack.com/" aria-label="Substack" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot__divider" aria-hidden="true"></div>
+
+    <div class="foot__scene" aria-hidden="true">
+      <div class="foot__copyline">© Learning Machines 2026</div>
+      <div class="foot__credit">Built in Toronto by <a href="https://www.skylorlane.com/" target="_blank" rel="noopener">Skylor</a></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

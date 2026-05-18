@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Machines — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300..500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <script src="lib/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: #0a0e18;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Toronto background (same as OS page) */
+    .bg {
+      position: fixed; inset: 0;
+      background: url('images/toronto-bg.jpg') center/cover no-repeat;
+      opacity: 0.35;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,14,24,0.55) 0%, rgba(10,14,24,0.82) 100%);
+    }
+
+    /* Card */
+    .card {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 420px;
+      background: rgba(10,14,24,0.96);
+      backdrop-filter: blur(32px) saturate(150%);
+      -webkit-backdrop-filter: blur(32px) saturate(150%);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 20px;
+      padding: 2.6rem 2.8rem 2.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Brand gradient line */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(126,216,126,0.6) 30%,
+        rgba(245,197,74,0.35) 70%,
+        transparent 100%);
+    }
+
+    .card__eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(126,216,126,0.72);
+      margin-bottom: 0.5rem;
+    }
+    .card__title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 0.4rem;
+      line-height: 1.15;
+    }
+    .card__sub {
+      font-size: 0.88rem;
+      font-weight: 350;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 2rem;
+      line-height: 1.55;
+    }
+
+    /* Email input */
+    .input-wrap {
+      position: relative;
+      margin-bottom: 0.85rem;
+    }
+    .input-wrap input {
+      width: 100%;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 11px;
+      padding: 0.95rem 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 350;
+      color: rgba(255,255,255,0.88);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .input-wrap input::placeholder { color: rgba(255,255,255,0.28); }
+    .input-wrap input:focus {
+      border-color: rgba(126,216,126,0.45);
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* Send button */
+    .btn {
+      width: 100%;
+      padding: 1.05rem;
+      background: rgba(126,216,126,0.1);
+      border: 1px solid rgba(126,216,126,0.25);
+      border-radius: 12px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.88);
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, transform 0.14s;
+    }
+    .btn:hover:not(:disabled) {
+      background: rgba(126,216,126,0.18);
+      border-color: rgba(126,216,126,0.4);
+      transform: translateY(-1px);
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* States */
+    .state { display: none; }
+    .state.is-active { display: block; }
+
+    /* Sent state */
+    .sent-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .sent-email {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: rgba(126,216,126,0.8);
+      background: rgba(126,216,126,0.08);
+      border: 1px solid rgba(126,216,126,0.2);
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      margin: 1rem 0 1.5rem;
+      display: inline-block;
+    }
+    .sent-note {
+      font-size: 0.82rem;
+      font-weight: 350;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+    }
+
+    /* Error */
+    .error-msg {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      color: rgba(255,107,107,0.8);
+      letter-spacing: 0.06em;
+      margin-top: 0.6rem;
+      display: none;
+    }
+    .error-msg.is-visible { display: block; }
+
+    /* Footer */
+    .card__footer {
+      margin-top: 1.8rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.16);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg" aria-hidden="true"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <div class="card" style="position:fixed;">
+
+    <!-- ── State: Enter email ── -->
+    <div class="state is-active" id="state-email">
+      <div class="card__eyebrow">/ Learning Machines OS</div>
+      <div class="card__title">Welcome back.</div>
+      <div class="card__sub">Enter your email and we'll send you a one-click sign-in link. No password needed.</div>
+
+      <div class="input-wrap">
+        <input
+          type="email"
+          id="email-input"
+          placeholder="your@email.com"
+          autocomplete="email"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+      </div>
+      <div class="error-msg" id="error-msg"></div>
+      <button class="btn" id="send-btn" onclick="sendMagicLink()">Send sign-in link →</button>
+    </div>
+
+    <!-- ── State: Link sent ── -->
+    <div class="state" id="state-sent">
+      <span class="sent-icon">✉️</span>
+      <div class="card__eyebrow">/ Check your inbox</div>
+      <div class="card__title">Link sent.</div>
+      <div class="card__sub">We sent a sign-in link to:</div>
+      <div class="sent-email" id="sent-email-display">—</div>
+      <div class="sent-note">Click the link in the email and you'll land straight on your OS page. The link expires in 1 hour.</div>
+    </div>
+
+    <!-- ── State: Not accepted ── -->
+    <div class="state" id="state-denied">
+      <span class="sent-icon">🔒</span>
+      <div class="card__eyebrow">/ Access restricted</div>
+      <div class="card__title">Not on the list yet.</div>
+      <div class="card__sub">This email isn't registered for Learning Machines. If you think this is a mistake, message Skylor on Discord.</div>
+      <button class="btn" style="margin-top:1.5rem;" onclick="goTo('state-email')">← Try a different email</button>
+    </div>
+
+    <div class="card__footer">Learning Machines OS · Cohort 2026</div>
+  </div>
+
+  <script>
+    // ── Init Supabase ──────────────────────────────────────────────
+    var cfg = window.LM_CONFIG;
+    var { createClient } = supabase;
+    var sb = createClient(cfg.supabase.url, cfg.supabase.key);
+
+    // ── On load: check if we're returning from a magic link ────────
+    (async function () {
+      // Supabase automatically parses the hash fragment (#access_token=...)
+      // and establishes a session. We just check if it happened.
+      var { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        // Already authenticated (or just came back from magic link).
+        window.location.href = 'os.html';
+      }
+    })();
+
+    // ── Listen for auth state changes (magic link callback) ────────
+    sb.auth.onAuthStateChange(function(event, session) {
+      if (event === 'SIGNED_IN' && session) {
+        window.location.href = 'os.html';
+      }
+    });
+
+    // ── Send magic link ────────────────────────────────────────────
+    async function sendMagicLink() {
+      var email = document.getElementById('email-input').value.trim().toLowerCase();
+      var errorEl = document.getElementById('error-msg');
+      var btn = document.getElementById('send-btn');
+
+      errorEl.classList.remove('is-visible');
+
+      if (!email || !email.includes('@')) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      var { error } = await sb.auth.signInWithOtp({
+        email: email,
+        options: {
+          shouldCreateUser: false,  // only accepted students can log in
+          emailRedirectTo: cfg.auth.redirectTo
+        }
+      });
+
+      if (error) {
+        btn.disabled = false;
+        btn.textContent = 'Send sign-in link →';
+
+        // Supabase returns a generic error when shouldCreateUser=false
+        // and the email isn't in auth.users
+        if (error.message && error.message.toLowerCase().includes('not found')) {
+          goTo('state-denied');
+        } else {
+          showError(error.message || 'Something went wrong. Try again.');
+        }
+        return;
+      }
+
+      // Success
+      document.getElementById('sent-email-display').textContent = email;
+      goTo('state-sent');
+    }
+
+    function showError(msg) {
+      var el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.classList.add('is-visible');
+    }
+
+    function goTo(id) {
+      document.querySelectorAll('.state').forEach(function(s) {
+        s.classList.remove('is-active');
+      });
+      document.getElementById(id).classList.add('is-active');
+    }
+
+    // ── Enter key support ──────────────────────────────────────────
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') sendMagicLink();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Learning Machines Summer Camp</title>
+  <meta name="description" content="About Learning Machines Summer Camp — a free 6-week program for ambitious builders." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..400&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── About page only: editorial body typography ── */
+
+    /* Body paragraphs → DM Sans, light, tight — inspired by thinkingmachines.ai */
+    .subpage__inner p,
+    .subpage__inner li {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 350;
+      line-height: 1.82;
+      letter-spacing: 0.008em;
+      color: rgba(20, 24, 26, 0.68);
+    }
+
+    /* h2 → Instrument Serif, homepage-style but sized for body reading */
+    .subpage__inner h2.serif {
+      font-family: 'Instrument Serif', 'Newsreader', Georgia, serif;
+      font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+      font-weight: 400;
+      letter-spacing: -0.018em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-top: 3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Munger pull quote */
+    .about-quote {
+      margin: 2.5rem 0 2.75rem;
+      padding: 0 0 0 1.4rem;
+      border-left: 2px solid rgba(20, 24, 26, 0.14);
+    }
+    .about-quote p {
+      font-family: 'Instrument Serif', 'Newsreader', Georgia, serif !important;
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem) !important;
+      font-style: italic;
+      line-height: 1.52 !important;
+      color: var(--ink) !important;
+      font-weight: 400;
+      margin-bottom: 0.55rem !important;
+      letter-spacing: -0.01em !important;
+    }
+    .about-quote cite {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: rgba(20, 24, 26, 0.42);
+      font-style: normal;
+    }
+  </style>
+</head>
+<body data-nav-color="cream">
+
+  <nav class="nav-pill" aria-label="Main">
+    <a href="/" class="nav-pill__logo" aria-label="Learning Machines home">
+      <svg viewBox="0 0 48 46" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+        <rect x="2" y="40" width="44" height="4" fill="currentColor"/>
+        <rect x="0" y="18" width="8" height="3" fill="currentColor"/>
+        <rect x="1" y="24" width="6" height="3" fill="currentColor"/>
+        <rect x="40" y="18" width="8" height="3" fill="currentColor"/>
+        <rect x="41" y="24" width="6" height="3" fill="currentColor"/>
+        <rect x="14" y="4" width="3" height="3" fill="currentColor"/>
+        <rect x="22" y="2" width="4" height="3" fill="currentColor"/>
+        <rect x="31" y="4" width="3" height="3" fill="currentColor"/>
+        <rect x="9"  y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="37" y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="16" y="8" width="16" height="3" fill="currentColor"/>
+        <rect x="13" y="10" width="3" height="3" fill="currentColor"/>
+        <rect x="32" y="10" width="3" height="3" fill="currentColor"/>
+        <rect x="11" y="13" width="3" height="22" fill="currentColor"/>
+        <rect x="34" y="13" width="3" height="22" fill="currentColor"/>
+        <rect x="13" y="35" width="3" height="3" fill="currentColor"/>
+        <rect x="32" y="35" width="3" height="3" fill="currentColor"/>
+        <rect x="16" y="37" width="16" height="3" fill="currentColor"/>
+        <rect x="22" y="8" width="4" height="30" fill="currentColor"/>
+        <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+        <rect x="17" y="17" width="3" height="3" fill="currentColor"/>
+        <rect x="14" y="20" width="3" height="3" fill="currentColor"/>
+        <rect x="14" y="28" width="3" height="3" fill="currentColor"/>
+        <rect x="17" y="31" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="14" width="3" height="3" fill="currentColor"/>
+        <rect x="28" y="17" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="20" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="28" width="3" height="3" fill="currentColor"/>
+        <rect x="28" y="31" width="3" height="3" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="nav-pill__links">
+      <a href="/about">About</a>
+      <a href="/demos">Demos</a>
+      <a href="/#faq">FAQs</a>
+    </div>
+    <a href="https://learningmachines.fillout.com/summer-app" class="nav-pill__cta" data-apply-link target="_blank" rel="noopener">
+      Apply Now
+      <span class="nav-pill__cta-icon">
+        <svg viewBox="0 0 16 16" width="10" height="10" fill="none">
+          <path d="M5 3l5 5-5 5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+  </nav>
+
+  <main>
+
+    <!-- Hero -->
+    <div class="demos-hero" style="text-align: center;">
+      <span class="eyebrow">/ About</span>
+      <h1 class="serif">A summer to compress a year<br/>of your life into six weeks.</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="subpage__inner">
+
+      <p>Learning Machines Summer Camp is a free six-week program for ambitious builders. From July 20 to August 31, 2026, you'll spend your days (or nights and weekends — shoutout Buildspace) working obsessively on one thing, alongside hundreds of others doing the same. Online, no grades, no instructor checking your homework, no fluff. You pick the idea. We hold the cadence.</p>
+
+      <blockquote class="about-quote">
+        <p>"The people who rise in life are learning machines — the people who go to bed a little wiser than when they woke up."</p>
+        <cite>— Charlie Munger</cite>
+      </blockquote>
+
+      <h2 class="serif">Why we exist</h2>
+
+      <p>Y Combinator started as the summer founders program in 2005. That very first summer batch only featured eight startups yet produced the founders of OpenAI, Twitch, and Reddit. Newton was a 22-year-old sent home from Cambridge during the plague. Linus Torvalds was a student with a summer and an operating systems textbook. The pattern shows up everywhere once you start looking for it: the most important work of someone's life often gets done in a single concentrated stretch, usually before they're 30, almost always when the obligations of a normal life haven't yet caught up to them.</p>
+
+      <p>The conditions for that kind of work are simple and rare. Time you control. Peers who take you seriously. A reason to show up tomorrow. Most institutions are organized to give you the opposite: schedules someone else sets, classmates optimizing for grades, deliverables that don't matter outside the building.</p>
+
+      <p>A summer is short enough to commit to and long enough to change you. We're trying to engineer the conditions for a small version of a miracle year, six weeks at a time, for as many people as we can find.</p>
+
+      <h2 class="serif">What you'll get</h2>
+
+      <p>A weekly rhythm: one lecture, one guest talk, and one weekly update. That's the whole structure. Hundreds of builders working in parallel on their own ideas, which turns out to be the closest thing to peer pressure that actually helps. An optional in-person demo day in Toronto at the end of August for anyone who wants to fly in. Lifetime access to the alumni network and warm intros into it, for as long as the network exists.</p>
+
+      <h2 class="serif">Who runs this</h2>
+
+      <p>Learning Machines is an independent media brand run by <a href="https://www.skylorlane.com" target="_blank" rel="noopener">Skylor</a>. The summer camp is one part of it; the rest of the year we publish a podcast and a newsletter on the ideas and people we think matter. We're self-funded. No equity taken or fees charged.</p>
+
+      <p>The bet underneath everything is that human capital is the bottleneck. That the people who could be doing the most important work of the next decade are mostly not, because nobody built them the room to. We're trying to build that room.</p>
+
+      <p style="margin-top: 3rem;"><a href="/">← back to home</a></p>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

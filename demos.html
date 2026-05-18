@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demos — Learning Machines Summer Camp</title>
+  <meta name="description" content="Check out demos from Learning Machines S1 — builders showcasing projects built over 6 weeks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..400&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Match about page editorial body text for the demos hero subline */
+    .demos-hero p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 350;
+      line-height: 1.82;
+      letter-spacing: 0.008em;
+      color: rgba(20, 24, 26, 0.68);
+    }
+  </style>
+</head>
+<body data-nav-color="cream">
+
+  <nav class="nav-pill" aria-label="Main">
+    <a href="/" class="nav-pill__logo" aria-label="Learning Machines home">
+      <svg viewBox="0 0 48 46" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+        <rect x="2" y="40" width="44" height="4" fill="currentColor"/>
+        <rect x="0" y="18" width="8" height="3" fill="currentColor"/>
+        <rect x="1" y="24" width="6" height="3" fill="currentColor"/>
+        <rect x="40" y="18" width="8" height="3" fill="currentColor"/>
+        <rect x="41" y="24" width="6" height="3" fill="currentColor"/>
+        <rect x="14" y="4" width="3" height="3" fill="currentColor"/>
+        <rect x="22" y="2" width="4" height="3" fill="currentColor"/>
+        <rect x="31" y="4" width="3" height="3" fill="currentColor"/>
+        <rect x="9"  y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="37" y="8" width="2" height="2" fill="currentColor"/>
+        <rect x="16" y="8" width="16" height="3" fill="currentColor"/>
+        <rect x="13" y="10" width="3" height="3" fill="currentColor"/>
+        <rect x="32" y="10" width="3" height="3" fill="currentColor"/>
+        <rect x="11" y="13" width="3" height="22" fill="currentColor"/>
+        <rect x="34" y="13" width="3" height="22" fill="currentColor"/>
+        <rect x="13" y="35" width="3" height="3" fill="currentColor"/>
+        <rect x="32" y="35" width="3" height="3" fill="currentColor"/>
+        <rect x="16" y="37" width="16" height="3" fill="currentColor"/>
+        <rect x="22" y="8" width="4" height="30" fill="currentColor"/>
+        <rect x="14" y="14" width="3" height="3" fill="currentColor"/>
+        <rect x="17" y="17" width="3" height="3" fill="currentColor"/>
+        <rect x="14" y="20" width="3" height="3" fill="currentColor"/>
+        <rect x="14" y="28" width="3" height="3" fill="currentColor"/>
+        <rect x="17" y="31" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="14" width="3" height="3" fill="currentColor"/>
+        <rect x="28" y="17" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="20" width="3" height="3" fill="currentColor"/>
+        <rect x="31" y="28" width="3" height="3" fill="currentColor"/>
+        <rect x="28" y="31" width="3" height="3" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="nav-pill__links">
+      <a href="/about">About</a>
+      <a href="/demos">Demos</a>
+      <a href="/#faq">FAQs</a>
+    </div>
+    <a href="https://learningmachines.fillout.com/summer-app" class="nav-pill__cta" data-apply-link target="_blank" rel="noopener">
+      Apply Now
+      <span class="nav-pill__cta-icon">
+        <svg viewBox="0 0 16 16" width="10" height="10" fill="none">
+          <path d="M5 3l5 5-5 5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+  </nav>
+
+  <main>
+
+    <!-- Hero -->
+    <div class="demos-hero">
+      <span class="eyebrow">/ Demo Day</span>
+      <h1 class="serif">Check out demos from<br/>Summer 2026.</h1>
+      <p>Builders showcasing the projects they made over 6 weeks. Coming August 2026.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="demos-filters">
+      <button class="demos-filter is-active">All</button>
+      <button class="demos-filter">AI</button>
+      <button class="demos-filter">Software</button>
+      <button class="demos-filter">Hardware</button>
+      <button class="demos-filter">Media / Content</button>
+      <button class="demos-filter">Other</button>
+    </div>
+
+    <!-- Demo Grid -->
+    <div class="demos-grid">
+
+      <div class="demo-card">
+        <div class="demo-card__video">
+          <div class="demo-card__video-placeholder">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor"/>
+            </svg>
+            <span>Video coming soon</span>
+          </div>
+        </div>
+        <span class="demo-card__tag">AI</span>
+        <h3>Project Title</h3>
+        <p class="demo-card__creator">by Builder Name</p>
+        <p class="demo-card__desc">A short description of what this project does and why it matters.</p>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-card__video">
+          <div class="demo-card__video-placeholder">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor"/>
+            </svg>
+            <span>Video coming soon</span>
+          </div>
+        </div>
+        <span class="demo-card__tag">Software</span>
+        <h3>Project Title</h3>
+        <p class="demo-card__creator">by Builder Name</p>
+        <p class="demo-card__desc">A short description of what this project does and why it matters.</p>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-card__video">
+          <div class="demo-card__video-placeholder">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor"/>
+            </svg>
+            <span>Video coming soon</span>
+          </div>
+        </div>
+        <span class="demo-card__tag">Media / Content</span>
+        <h3>Project Title</h3>
+        <p class="demo-card__creator">by Builder Name</p>
+        <p class="demo-card__desc">A short description of what this project does and why it matters.</p>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-card__video">
+          <div class="demo-card__video-placeholder">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor"/>
+            </svg>
+            <span>Video coming soon</span>
+          </div>
+        </div>
+        <span class="demo-card__tag">Hardware</span>
+        <h3>Project Title</h3>
+        <p class="demo-card__creator">by Builder Name</p>
+        <p class="demo-card__desc">A short description of what this project does and why it matters.</p>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-card__video">
+          <div class="demo-card__video-placeholder">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor"/>
+            </svg>
+            <span>Video coming soon</span>
+          </div>
+        </div>
+        <span class="demo-card__tag">AI</span>
+        <h3>Project Title</h3>
+        <p class="demo-card__creator">by Builder Name</p>
+        <p class="demo-card__desc">A short description of what this project does and why it matters.</p>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-card__video">
+          <div class="demo-card__video-placeholder">
+            <svg viewBox="0 0 48 48" width="36" height="36" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor"/>
+            </svg>
+            <span>Video coming soon</span>
+          </div>
+        </div>
+        <span class="demo-card__tag">Other</span>
+        <h3>Project Title</h3>
+        <p class="demo-card__creator">by Builder Name</p>
+        <p class="demo-card__desc">A short description of what this project does and why it matters.</p>
+      </div>
+
+    </div>
+
+    <div class="demos-back">
+      <a href="/">← back to home</a>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

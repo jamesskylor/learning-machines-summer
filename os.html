@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Machines OS</title>
+  <meta name="description" content="Learning Machines OS: your hub for the 6-week summer camp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..400&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="lib/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <style>
+    /* Scope overflow:hidden to this page only */
+    html.os-page, html.os-page body { overflow: hidden; height: 100%; }
+
+    /* ─────────────────────────────────────────────
+       CANVAS — left CTA + right single icon
+    ───────────────────────────────────────────── */
+    .os-canvas {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 60px 80px;
+      pointer-events: none;
+    }
+    .os-canvas > * { pointer-events: auto; }
+
+    /* "You got this." — true center */
+    .os-headline {
+      top: 50% !important;
+    }
+
+    /* ─────────────────────────────────────────────
+       RIGHT — announcement + stacked icons
+    ───────────────────────────────────────────── */
+    .os-right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      align-self: flex-start;
+      margin-top: 5rem;
+    }
+    .os-right-icons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .os-right-icon__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      transition: transform 0.18s;
+      cursor: pointer;
+    }
+    .os-right-icon__item:hover { transform: scale(1.08); filter: brightness(1.15); }
+    .os-right-icon {
+      width: 58px; height: 62px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+      border: 1px solid rgba(255,255,255,0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      position: relative;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .os-right-icon__item:hover .os-right-icon {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .os-right-icon::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 28%; height: 28%;
+      background: rgba(255,255,255,0.12);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      border-radius: 0 12px 0 0;
+    }
+    .os-right-icon__label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.52);
+      letter-spacing: 0.04em;
+      text-shadow:
+        1px 1px 0 rgba(0,0,0,0.9),
+        -1px -1px 0 rgba(0,0,0,0.9),
+        1px -1px 0 rgba(0,0,0,0.9),
+        -1px 1px 0 rgba(0,0,0,0.9);
+    }
+
+    .os-announce-shortcut {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: transform 0.15s;
+      cursor: pointer;
+    }
+    .os-announce-shortcut:hover { transform: scale(1.08); filter: brightness(1.15); }
+    .os-announce-shortcut__icon {
+      width: 58px; height: 62px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.11);
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: background 0.18s, border-color 0.18s;
+      position: relative;
+    }
+    .os-announce-shortcut:hover .os-announce-shortcut__icon {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.3);
+    }
+    /* Fold corner */
+    .os-announce-shortcut__icon::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 28%; height: 28%;
+      background: rgba(255,255,255,0.14);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      border-radius: 0 12px 0 0;
+    }
+    .os-announce-shortcut__label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.52);
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      text-shadow:
+        1px 1px 0 rgba(0,0,0,0.9),
+        -1px -1px 0 rgba(0,0,0,0.9),
+        1px -1px 0 rgba(0,0,0,0.9),
+        -1px 1px 0 rgba(0,0,0,0.9);
+    }
+
+    /* ─────────────────────────────────────────────
+       LIVE DOT — top right, triggers feed overlay
+    ───────────────────────────────────────────── */
+    .os-live-btn {
+      position: fixed;
+      top: 1.15rem;
+      right: 9rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      color: rgba(126,216,126,0.65);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: color 0.15s;
+    }
+    .os-live-btn:hover { color: rgba(126,216,126,1); }
+    .os-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #7ed87e;
+      box-shadow: 0 0 6px rgba(126,216,126,0.8);
+      animation: live-pulse 2s ease-in-out infinite;
+    }
+    @keyframes live-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+
+    /* ─────────────────────────────────────────────
+       FEED OVERLAY — full screen, slides in
+    ───────────────────────────────────────────── */
+    .os-feed-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.93);
+      backdrop-filter: blur(8px) saturate(100%);
+      -webkit-backdrop-filter: blur(8px) saturate(100%);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .os-feed-overlay.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .os-feed-overlay__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem 2.4rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .os-feed-overlay__title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .os-feed-overlay__close {
+      background: none;
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+    }
+    .os-feed-overlay__close:hover { color: rgba(255,255,255,1); }
+
+    /* ─────────────────────────────────────────────
+       ASK FOR HELP BUTTON
+    ───────────────────────────────────────────── */
+    .os-help-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 7px;
+      padding: 0.48rem 0.85rem;
+      cursor: pointer;
+      z-index: 150;
+      transition: background 0.15s, color 0.15s;
+    }
+    .os-help-btn:hover {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ─────────────────────────────────────────────
+       MODAL BACKGROUND
+    ───────────────────────────────────────────── */
+    .os-modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(6px) saturate(100%);
+      -webkit-backdrop-filter: blur(6px) saturate(100%);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .os-modal-bg.is-open { opacity: 1; pointer-events: all; }
+
+    .os-modal {
+      width: 520px;
+      background: rgba(10,14,24,0.96);
+      backdrop-filter: blur(32px) saturate(150%);
+      -webkit-backdrop-filter: blur(32px) saturate(150%);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 18px;
+      padding: 2.2rem 2.4rem 2.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Brand gradient line across top of modal */
+    .os-modal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(126,216,126,0.5) 25%,
+        rgba(245,197,74,0.3) 65%,
+        transparent 100%);
+      border-radius: 18px 18px 0 0;
+    }
+    .os-modal__close {
+      position: absolute; top: 1.1rem; right: 1.2rem;
+      background: none; border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.56rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+    }
+    .os-modal__close:hover { color: rgba(255,255,255,1); }
+    .os-modal__state { display: none; }
+    .os-modal__state.is-active { display: block; }
+    .os-modal__eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.16em;
+      color: rgba(126,216,126,0.72);
+      text-transform: uppercase; margin-bottom: 0.45rem;
+    }
+    .os-modal__title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.75rem; color: rgba(255,255,255,0.92);
+      letter-spacing: -0.02em; margin-bottom: 0.35rem;
+      line-height: 1.2;
+    }
+    .os-modal__sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem; font-weight: 350;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1.8rem; line-height: 1.55;
+    }
+    .os-modal__context {
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 0.85rem 1rem; margin-bottom: 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 350;
+      color: rgba(255,255,255,0.68); line-height: 1.55;
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .os-modal__context span { color: rgba(255,255,255,0.82); }
+    .os-modal__choices {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.75rem; margin-bottom: 0.5rem;
+    }
+    .os-modal__choice {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0.7rem;
+      padding: 1.6rem 1.2rem;
+      background: rgba(255,255,255,0.11);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 14px; cursor: pointer;
+      backdrop-filter: blur(20px) saturate(140%) brightness(1.05);
+      -webkit-backdrop-filter: blur(20px) saturate(140%) brightness(1.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: background 0.18s, border-color 0.18s, transform 0.14s;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.65); text-align: center;
+    }
+    .os-modal__choice:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(126,216,126,0.35);
+      transform: translateY(-2px); color: rgba(255,255,255,0.92);
+    }
+    .os-modal__choice-icon { font-size: 2rem; }
+    .os-modal__choice-hint {
+      font-size: 0.58rem; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.6);
+    }
+    .os-modal__textarea {
+      width: 100%; min-height: 110px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem; font-weight: 350;
+      color: rgba(255,255,255,0.82); resize: none;
+      outline: none; line-height: 1.6;
+      backdrop-filter: blur(16px) saturate(130%);
+      -webkit-backdrop-filter: blur(16px) saturate(130%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: border-color 0.15s; margin-bottom: 0.85rem;
+      box-sizing: border-box;
+    }
+    .os-modal__textarea::placeholder { color: rgba(255,255,255,0.28); }
+    .os-modal__textarea:focus { border-color: rgba(255,255,255,0.35); }
+    .os-modal__voice-ring {
+      display: flex; flex-direction: column;
+      align-items: center; padding: 1.8rem 0 1.2rem; gap: 1rem;
+    }
+    .os-modal__record-btn {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(255,80,80,0.12);
+      border: 2px solid rgba(255,100,100,0.35);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform 0.14s;
+    }
+    .os-modal__record-btn:hover { transform: scale(1.06); }
+    .os-modal__record-btn.is-recording {
+      background: rgba(255,80,80,0.2);
+      border-color: rgba(255,100,100,0.65);
+      animation: rec-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes rec-pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,80,80,0.4); }
+      50%      { box-shadow: 0 0 0 12px rgba(255,80,80,0); }
+    }
+    .os-modal__record-inner {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,100,100,0.8);
+      transition: border-radius 0.2s, width 0.2s, height 0.2s;
+    }
+    .is-recording .os-modal__record-inner {
+      border-radius: 4px; width: 17px; height: 17px;
+    }
+    .os-modal__voice-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4); text-align: center;
+    }
+    .os-modal__voice-timer {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.2rem; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.65);
+    }
+    .os-modal__extracted {
+      background: rgba(126,216,126,0.1);
+      border: 1px solid rgba(126,216,126,0.28);
+      border-radius: 12px; padding: 1.1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      box-shadow: inset 0 1px 0 rgba(126,216,126,0.1);
+    }
+    .os-modal__extracted-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(126,216,126,0.7);
+      margin-bottom: 0.85rem;
+    }
+    .os-modal__field-row { display: flex; flex-direction: column; gap: 0.65rem; }
+    .os-modal__field-key {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.56rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+      margin-bottom: 0.2rem;
+    }
+    .os-modal__field-val {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 350;
+      color: rgba(255,255,255,0.88); line-height: 1.5;
+      background: rgba(255,255,255,0.1);
+      border-radius: 7px; padding: 0.45rem 0.65rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: text;
+    }
+    .os-modal__btn {
+      width: 100%; padding: 1rem;
+      background: rgba(126,216,126,0.09);
+      border: 1px solid rgba(126,216,126,0.2);
+      border-radius: 12px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.15rem; letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.85); cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, transform 0.14s;
+    }
+    .os-modal__btn:hover {
+      background: rgba(126,216,126,0.16);
+      border-color: rgba(126,216,126,0.35);
+      transform: translateY(-1px);
+    }
+    .os-modal__back {
+      display: block; margin-top: 0.65rem;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.18); cursor: pointer;
+    }
+    .os-modal__back:hover { color: rgba(255,255,255,0.45); }
+
+    /* ─────────────────────────────────────────────
+       LEADERBOARD TABS
+    ───────────────────────────────────────────── */
+    .lb-tabs {
+      display: flex;
+      gap: 2px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 3px;
+    }
+    .lb-tab {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      background: none;
+      border: none;
+      border-radius: 6px;
+      padding: 0.32rem 0.72rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .lb-tab:hover { color: rgba(255,255,255,0.85); }
+    .lb-tab.is-active {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.88);
+    }
+
+    /* Panels */
+    .lb-panel { display: none; }
+    .lb-panel.is-active {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* ─── EMPTY STATES ─── */
+    .lb-empty-state {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .lb-empty-state__icon {
+      font-size: 2.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .lb-empty-state__title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+    }
+    .lb-empty-state__sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 28rem;
+      line-height: 1.6;
+    }
+
+    /* ─── SHIP LOG ─── */
+    .lb-feed {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      padding: 1.5rem 2.4rem 2rem;
+      align-content: start;
+    }
+    .lb-card {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.26);
+      border-radius: 12px;
+      padding: 0.95rem 1.1rem;
+      backdrop-filter: blur(24px) saturate(150%) brightness(1.06);
+      -webkit-backdrop-filter: blur(24px) saturate(150%) brightness(1.06);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .lb-card:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.36);
+    }
+    .lb-card--honest {
+      background: rgba(245,197,74,0.12);
+      border-color: rgba(245,197,74,0.32);
+    }
+    .lb-card--needs {
+      background: rgba(100,160,255,0.12);
+      border-color: rgba(100,160,255,0.32);
+    }
+    .lb-card__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.48rem;
+    }
+    .lb-card__who {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .lb-card__name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.92);
+    }
+    .lb-card__streak {
+      font-size: 0.38rem;
+      color: rgba(126,216,126,0.8);
+      letter-spacing: -2px;
+    }
+    .lb-card__time {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.44rem;
+      color: rgba(255,255,255,0.38);
+    }
+    .lb-card__text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 350;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 0.6rem;
+    }
+    .lb-card__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .lb-card__num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.48);
+    }
+    .lb-card__num strong { color: rgba(255,255,255,0.88); }
+    .lb-card__delta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.46rem;
+      color: rgba(255,255,255,0.22);
+    }
+    .lb-card__delta.up { color: rgba(126,216,126,0.7); }
+    .lb-card__honest-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.42rem;
+      letter-spacing: 0.07em;
+      color: rgba(245,197,74,0.65);
+      background: rgba(245,197,74,0.08);
+      border: 1px solid rgba(245,197,74,0.15);
+      border-radius: 4px;
+      padding: 0.18rem 0.42rem;
+    }
+    .lb-card__needs {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.42rem;
+      color: rgba(100,160,255,0.62);
+    }
+    .lb-card__tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.42rem;
+      color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 0.18rem 0.42rem;
+    }
+
+    /* ─── AI DIGEST ─── */
+    .lb-digest {
+      padding: 2.2rem 3rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      overflow-y: auto;
+    }
+    /* pull-quote synthesis sentence */
+    .lb-digest__sentence {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.55rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.82);
+      max-width: 820px;
+      padding-left: 1.4rem;
+      border-left: 2px solid rgba(126,216,126,0.35);
+    }
+    .lb-digest__attr {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      margin-top: 0.65rem;
+      font-style: normal;
+    }
+    .lb-digest__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+    }
+    .lb-digest__card {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.36);
+      border-radius: 14px;
+      padding: 1.5rem 1.6rem;
+      backdrop-filter: blur(32px) saturate(160%) brightness(1.1);
+      -webkit-backdrop-filter: blur(32px) saturate(160%) brightness(1.1);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.28),
+        inset 0 -1px 0 rgba(255,255,255,0.06);
+    }
+    .lb-digest__card--momentum {
+      background: rgba(126,216,126,0.18);
+      border-color: rgba(126,216,126,0.42);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.28),
+        0 0 0 1px rgba(126,216,126,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+    .lb-digest__card--honest {
+      background: rgba(245,197,74,0.16);
+      border-color: rgba(245,197,74,0.4);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.28),
+        0 0 0 1px rgba(245,197,74,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+    .lb-digest__card--help {
+      background: rgba(100,160,255,0.16);
+      border-color: rgba(100,160,255,0.38);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.28),
+        0 0 0 1px rgba(100,160,255,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+    .lb-digest__card--breakout {
+      background: rgba(255,160,80,0.16);
+      border-color: rgba(255,160,80,0.38);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.28),
+        0 0 0 1px rgba(255,160,80,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    }
+    .lb-digest__card-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.1rem;
+    }
+    .lb-digest__entries {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .lb-digest__entry {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .lb-digest__entry-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.95);
+    }
+    .lb-digest__entry-detail {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 350;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.55;
+    }
+
+    /* ─── BUILDER ARCS ─── */
+    .lb-arcs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+      padding: 1.5rem 2.4rem 2rem;
+      align-content: start;
+    }
+    .lb-arc-card {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.26);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      backdrop-filter: blur(24px) saturate(150%) brightness(1.06);
+      -webkit-backdrop-filter: blur(24px) saturate(150%) brightness(1.06);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .lb-arc-card:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.36);
+    }
+    .lb-arc-card__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .lb-arc-card__who {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .lb-arc-card__name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.92);
+    }
+    .lb-arc-card__project {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 350;
+      color: rgba(255,255,255,0.48);
+    }
+    .lb-arc-card__spark {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 28px;
+    }
+    .lb-arc-bar {
+      width: 8px;
+      min-height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: rgba(255,255,255,0.18);
+      transition: height 0.3s;
+    }
+    .lb-arc-bar--current { background: rgba(126,216,126,0.6); }
+    .lb-arc-bar--down    { background: rgba(255,107,107,0.5) !important; }
+    .lb-arc-bar--future  {
+      height: 2px !important;
+      background: rgba(255,255,255,0.07);
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+    .lb-arc-card__streak {
+      font-size: 0.38rem;
+      color: rgba(126,216,126,0.6);
+      letter-spacing: -2px;
+    }
+    /* Weeks: hidden, shown on expand */
+    .lb-arc-card__weeks {
+      display: none;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .lb-arc-card.is-expanded .lb-arc-card__weeks { display: flex; }
+    .lb-arc-week {
+      display: flex;
+      gap: 0.65rem;
+      align-items: baseline;
+    }
+    .lb-arc-week__n {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.42rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      width: 1.8rem;
+    }
+    .lb-arc-week__text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.73rem;
+      font-weight: 350;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.28);
+    }
+    .lb-arc-week--current .lb-arc-week__text { color: rgba(255,255,255,0.55); }
+
+    /* ─── top-meta ─── */
+    .top-meta {
+      position: fixed; top: 1.2rem; right: 1.6rem;
+      z-index: 100; display: flex; align-items: center;
+      gap: 0.5rem; font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.42);
+    }
+    .top-meta__dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+    }
+  </style>
+</head>
+<body data-nav-color="light">
+
+  <!-- ── Background ── -->
+  <div class="os-bg" aria-hidden="true"></div>
+
+  <!-- ── Week pill ── -->
+  <div class="os-week-pill">
+    <span class="os-week-pill__dot"></span>
+    <span id="os-week-text">Week 1 of 6 · Idea</span>
+  </div>
+  <div class="os-week-dots" id="os-week-dots" aria-hidden="true"></div>
+
+  <!-- ── Top right: time + LIVE button ── -->
+  <div class="top-meta" aria-hidden="true">
+    <span class="top-meta__dot"></span>
+    <span id="local-time">--:-- PM</span>
+    <span>TOR</span>
+  </div>
+  <button class="os-live-btn" onclick="openFeed()">
+    <div class="os-live-dot"></div>
+    LIVE
+  </button>
+
+  <!-- ── Watermark ── -->
+  <div class="os-headline" aria-hidden="true">You got this.</div>
+
+  <!-- ── CANVAS: left CTA + right icons ── -->
+  <div class="os-canvas">
+
+    <!-- LEFT: countdown + submit + discord -->
+    <div class="os-left">
+      <p class="os-countdown" id="os-countdown"></p>
+      <a class="os-cta-primary" id="os-submit-cta" onclick="openSubmit()" style="cursor:pointer; text-decoration:none;">
+        <span>Submit this week's<br/>update</span>
+        <span class="os-cta-primary__arrow">→</span>
+      </a>
+      <a href="#" id="os-discord-link" class="os-cta-secondary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+        </svg>
+        Open Discord →
+      </a>
+    </div>
+
+    <!-- RIGHT: announcement + stacked icons -->
+    <div class="os-right-panel">
+      <a href="#" id="os-announce-link" class="os-announce-shortcut" target="_blank" rel="noopener" aria-label="This week's announcement">
+        <div class="os-announce-shortcut__icon">📣</div>
+        <span class="os-announce-shortcut__label">this week's post</span>
+      </a>
+      <div class="os-right-icons">
+        <a href="#" id="os-lecture-link" class="os-right-icon__item" target="_blank" rel="noopener" aria-label="This week's lecture">
+          <div class="os-right-icon">🎬</div>
+          <span class="os-right-icon__label">lecture</span>
+        </a>
+        <a href="#" id="os-talk-link" class="os-right-icon__item" target="_blank" rel="noopener" aria-label="Guest talk">
+          <div class="os-right-icon">🎙️</div>
+          <span class="os-right-icon__label">guest talk</span>
+        </a>
+        <a href="#" id="os-resources-link" class="os-right-icon__item" target="_blank" rel="noopener" aria-label="Resources">
+          <div class="os-right-icon">📂</div>
+          <span class="os-right-icon__label">resources</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Ask for help button ── -->
+  <button class="os-help-btn" onclick="openHelp()">Ask for help →</button>
+
+  <!-- ── LIVE Feed overlay ── -->
+  <div class="os-feed-overlay" id="feed-overlay">
+
+    <!-- Header -->
+    <div class="os-feed-overlay__header">
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <div class="os-feed-overlay__title">
+          <div class="os-live-dot" style="width:5px;height:5px;flex-shrink:0;"></div>
+          <span id="os-overlay-week-label">Week 1 of 6</span>
+        </div>
+        <span style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:rgba(255,255,255,0.2);" id="os-submission-count">builders submitted</span>
+        <div class="lb-tabs">
+          <button class="lb-tab is-active" onclick="switchTab('feed',this)">Ship log</button>
+          <button class="lb-tab" onclick="switchTab('digest',this)">AI digest</button>
+          <button class="lb-tab" onclick="switchTab('arcs',this)">Builder arcs</button>
+        </div>
+      </div>
+      <button class="os-feed-overlay__close" onclick="closeFeed()">✕ close</button>
+    </div>
+
+    <!-- ── TAB: SHIP LOG ── -->
+    <div class="lb-panel is-active" id="tab-feed">
+      <div class="lb-feed">
+
+        <div class="lb-empty-state" id="feed-empty">
+          <div class="lb-empty-state__icon">📭</div>
+          <div class="lb-empty-state__title">No updates yet this week</div>
+          <div class="lb-empty-state__sub">Updates appear here as builders submit them. Be the first.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── TAB: AI DIGEST ── -->
+    <div class="lb-panel" id="tab-digest">
+      <div class="lb-digest">
+
+        <div class="lb-empty-state" id="digest-empty">
+          <div class="lb-empty-state__icon">🤖</div>
+          <div class="lb-empty-state__title">Digest drops Sunday night</div>
+          <div class="lb-empty-state__sub">Every Sunday at 11:45 PM the AI reads every update and writes the cohort synthesis. Check back then.</div>
+        </div>
+
+        <div id="digest-content" style="display:none;">
+          <div class="lb-digest__sentence" id="digest-sentence"></div>
+          <div class="lb-digest__grid">
+            <div class="lb-digest__card lb-digest__card--momentum" id="digest-momentum">
+              <div class="lb-digest__card-label">🚀 Most momentum this week</div>
+              <div class="lb-digest__entries"></div>
+            </div>
+            <div class="lb-digest__card lb-digest__card--honest" id="digest-honest">
+              <div class="lb-digest__card-label">💬 Most honest update</div>
+              <div class="lb-digest__entries"></div>
+            </div>
+            <div class="lb-digest__card lb-digest__card--help" id="digest-needs">
+              <div class="lb-digest__card-label">🤝 Needs from the cohort</div>
+              <div class="lb-digest__entries"></div>
+            </div>
+            <div class="lb-digest__card lb-digest__card--breakout" id="digest-breakout">
+              <div class="lb-digest__card-label">⚡ Breakout to watch</div>
+              <div class="lb-digest__entries"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── TAB: BUILDER ARCS ── -->
+    <div class="lb-panel" id="tab-arcs">
+      <div class="lb-arcs">
+
+        <div class="lb-empty-state" id="arcs-empty">
+          <div class="lb-empty-state__icon">📈</div>
+          <div class="lb-empty-state__title">Arcs build week over week</div>
+          <div class="lb-empty-state__sub">Once builders start submitting updates, their journeys will appear here. Each one a 6-week story in miniature.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /feed-overlay -->
+
+  <!-- ── Submit modal ── -->
+  <div class="os-modal-bg" id="submit-modal" onclick="closeIfBg(event,'submit-modal')">
+    <div class="os-modal">
+      <button class="os-modal__close" onclick="closeModal('submit-modal')">✕ esc</button>
+
+      <!-- Choose -->
+      <div class="os-modal__state is-active" id="state-choose">
+        <div class="os-modal__eyebrow" id="os-modal-week-eyebrow">/ Week 1 update</div>
+        <div class="os-modal__title">How do you want to share your week?</div>
+        <div class="os-modal__sub">No forms. Just tell it what happened.</div>
+        <div class="os-modal__context">Last week you said: <span>"Get the waitlist to 50 signups and ship the beta to at least 10 of them."</span></div>
+        <div class="os-modal__choices">
+          <div class="os-modal__choice" onclick="goTo('state-voice')">
+            <div class="os-modal__choice-icon">🎙️</div>
+            Talk it out
+            <span class="os-modal__choice-hint">~60 seconds. AI structures it.</span>
+          </div>
+          <div class="os-modal__choice" onclick="goTo('state-type')">
+            <div class="os-modal__choice-icon">✍️</div>
+            Type it out
+            <span class="os-modal__choice-hint">Brain dump. AI extracts the rest.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Voice -->
+      <div class="os-modal__state" id="state-voice">
+        <div class="os-modal__eyebrow">/ Listening</div>
+        <div class="os-modal__title">Tell me about your week.</div>
+        <div class="os-modal__sub">What did you ship? What's your number? What's next? Just talk.</div>
+        <div class="os-modal__voice-ring">
+          <div class="os-modal__record-btn" id="record-btn" onclick="toggleRec()">
+            <div class="os-modal__record-inner"></div>
+          </div>
+          <div class="os-modal__voice-timer" id="voice-timer">tap to record</div>
+          <div class="os-modal__voice-label" id="voice-label">your words → structured update</div>
+        </div>
+        <button class="os-modal__btn" id="voice-extract-btn" onclick="extractUpdate('voice')">Done. Show me what you got →</button>
+        <span class="os-modal__back" onclick="goTo('state-choose')">← back</span>
+      </div>
+
+      <!-- Type -->
+      <div class="os-modal__state" id="state-type">
+        <div class="os-modal__eyebrow" id="os-modal-week-eyebrow-type">/ Week 1 update</div>
+        <div class="os-modal__title">What happened this week?</div>
+        <div class="os-modal__sub">Brain dump. Messy is fine. AI pulls out what matters.</div>
+        <div class="os-modal__context">Last week you said: <span>"Get the waitlist to 50 signups and ship the beta to at least 10 of them."</span></div>
+        <textarea class="os-modal__textarea" id="type-textarea" placeholder="Shipped the beta finally. Only got it to 7 users not 10, but two of them actually used it every day which was more than I expected. Waitlist hit 63. The onboarding is still a mess..."></textarea>
+        <button class="os-modal__btn" id="type-extract-btn" onclick="extractUpdate('type')">Extract my update →</button>
+        <span class="os-modal__back" onclick="goTo('state-choose')">← back</span>
+      </div>
+
+      <!-- AI extracted -->
+      <div class="os-modal__state" id="state-extracted">
+        <div class="os-modal__eyebrow">/ AI extracted, edit anything</div>
+        <div class="os-modal__title">Here's what I heard.</div>
+        <div class="os-modal__sub">Tap any field to edit before submitting.</div>
+        <div class="os-modal__extracted">
+          <div class="os-modal__extracted-label">Structured from your update</div>
+          <div class="os-modal__field-row">
+            <div>
+              <div class="os-modal__field-key">What you shipped</div>
+              <div class="os-modal__field-val" contenteditable="true">Beta shipped to 7 users. 2 became daily actives. Waitlist hit 63. One organic tweet.</div>
+            </div>
+            <div>
+              <div class="os-modal__field-key">Your number this week</div>
+              <div class="os-modal__field-val" contenteditable="true">7 beta users · 63 waitlist</div>
+            </div>
+            <div>
+              <div class="os-modal__field-key">Next week's goal</div>
+              <div class="os-modal__field-val" contenteditable="true">Fix first-run experience. Get to 20 weekly actives.</div>
+            </div>
+          </div>
+        </div>
+        <button class="os-modal__btn" id="os-submit-final-btn" onclick="handleFinalSubmit()">Submit week 1 update →</button>
+        <span class="os-modal__back" onclick="goTo('state-choose')">← start over</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Help modal ── -->
+  <div class="os-modal-bg" id="help-modal" onclick="closeIfBg(event,'help-modal')">
+    <div class="os-modal">
+      <button class="os-modal__close" onclick="closeModal('help-modal')">✕ esc</button>
+      <div class="os-modal__eyebrow">/ Ask for help</div>
+      <div class="os-modal__title">What do you need?</div>
+      <div class="os-modal__sub">Post a request to the builder network. Intros, feedback, advice. Someone in the cohort probably has it.</div>
+      <textarea class="os-modal__textarea" style="min-height:90px;" placeholder="e.g. Looking for anyone who's done cold outreach to law firms. Trying to sell a legal transcription tool and have no idea where to start..."></textarea>
+      <button class="os-modal__btn" onclick="closeModal('help-modal')">Post to the community →</button>
+    </div>
+  </div>
+
+  <canvas id="os-confetti" aria-hidden="true"></canvas>
+  <script src="script.js"></script>
+  <script>
+    // ── Supabase client ────────────────────────────────────────────
+    var cfg = window.LM_CONFIG;
+    var sb  = supabase.createClient(cfg.supabase.url, cfg.supabase.key);
+
+    // ── Auth guard ─────────────────────────────────────────────────
+    // Runs immediately. If auth is required and no session exists,
+    // redirect to login.html. Otherwise continue rendering.
+    var _sbSession = null;
+    (async function authGuard() {
+      var { data: { session } } = await sb.auth.getSession();
+      _sbSession = session;
+      if (cfg.auth.required && !session) {
+        window.location.href = 'login.html';
+      }
+    })();
+
+    // ── Wire config links ──────────────────────────────────────────
+    (function applyConfigLinks() {
+      var L = cfg.links;
+      var map = {
+        'os-announce-link':  L.announcement,
+        'os-lecture-link':   L.lecture,
+        'os-talk-link':      L.guestTalk,
+        'os-resources-link': L.resources,
+        'os-discord-link':   L.discord
+      };
+      Object.keys(map).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && map[id] && !map[id].includes('PLACEHOLDER') && !map[id].includes('-URL')) {
+          el.href = map[id];
+        }
+      });
+    })();
+
+    // Lock overflow on html element for this page only
+    document.documentElement.classList.add('os-page');
+
+    // ── Shared constants ───────────────────────────────────────────
+    var CAMP_START  = new Date('2026-07-20T00:00:00-04:00');
+    var THEMES      = ['Idea', 'Build', 'Ship', 'Iterate', 'Polish', 'Demo Day'];
+    var MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+    var now         = new Date();
+    var weekNum     = Math.floor((now - CAMP_START) / MS_PER_WEEK) + 1;
+    weekNum         = Math.max(1, Math.min(6, weekNum));
+
+    // ── Week pill ──────────────────────────────────────────────────
+    (function () {
+      var el = document.getElementById('os-week-text');
+      if (el) el.textContent = 'Week ' + weekNum + ' of 6 · ' + THEMES[weekNum - 1];
+    })();
+
+    // ── Week progress dots ─────────────────────────────────────────
+    (function () {
+      var container = document.getElementById('os-week-dots');
+      if (!container) return;
+      for (var i = 1; i <= 6; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'os-week-dot' +
+          (i < weekNum   ? ' is-done'    : '') +
+          (i === weekNum ? ' is-current' : '');
+        container.appendChild(dot);
+      }
+    })();
+
+    // ── Dynamic week label in overlay + modal ──────────────────────
+    (function () {
+      var wLabel = 'Week ' + weekNum + ' of 6';
+      var wShort = '/ Week ' + weekNum + ' update';
+      var wFinal = 'Submit week ' + weekNum + ' update →';
+
+      var ol = document.getElementById('os-overlay-week-label');
+      if (ol) ol.textContent = wLabel;
+
+      var me1 = document.getElementById('os-modal-week-eyebrow');
+      if (me1) me1.textContent = wShort;
+
+      var me2 = document.getElementById('os-modal-week-eyebrow-type');
+      if (me2) me2.textContent = wShort;
+
+      var fb = document.getElementById('os-submit-final-btn');
+      if (fb) fb.textContent = wFinal;
+    })();
+
+    // ── Clock ──────────────────────────────────────────────────────
+    (function () {
+      function tick() {
+        var t = new Date().toLocaleTimeString('en-US', {
+          timeZone: 'America/Toronto',
+          hour: 'numeric',
+          minute: '2-digit'
+        });
+        var el = document.getElementById('local-time');
+        if (el) el.textContent = t;
+      }
+      tick();
+      setInterval(tick, 10000);
+    })();
+
+    // ── Countdown to Saturday 23:59 ET ─────────────────────────────
+    (function () {
+      var el = document.getElementById('os-countdown');
+      if (!el) return;
+
+      function secsUntilSaturdayET() {
+        var etNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Toronto' }));
+        var day   = etNow.getDay(); // 0=Sun … 6=Sat
+        var secs  = etNow.getHours() * 3600 + etNow.getMinutes() * 60 + etNow.getSeconds();
+        var daysToSat = day === 6 ? 0 : 6 - day;
+        return daysToSat * 86400 + (86399 - secs);
+      }
+
+      function render() {
+        var s = secsUntilSaturdayET(), cls = 'os-countdown', txt;
+        if (s <= 0) {
+          txt = 'weekly update due now!';
+          cls += ' os-countdown--urgent';
+        } else {
+          var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+          txt = d > 0 ? ('weekly update due in ' + d + 'd ' + h + 'h') :
+                h > 0 ? ('weekly update due in ' + h + 'h ' + m + 'm') :
+                        ('weekly update due in ' + m + 'm');
+          if (s < 6 * 3600)       cls += ' os-countdown--urgent';
+          else if (s < 24 * 3600) cls += ' os-countdown--warn';
+        }
+        el.textContent = txt;
+        el.className   = cls;
+      }
+
+      render();
+      setInterval(render, 60000);
+    })();
+
+    // ── Confetti burst ─────────────────────────────────────────────
+    (function () {
+      var canvas = document.getElementById('os-confetti');
+      if (!canvas) return;
+      var ctx   = canvas.getContext('2d');
+      var parts = [];
+      var raf   = null;
+      var COLS  = ['#7ed87e','#ffffff','#f5c842','#ff8c69','#8fd5f7','#d4a8ff'];
+
+      function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+
+      window._confettiBurst = function burst(cx, cy) {
+        for (var i = 0; i < 70; i++) {
+          var a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 7;
+          parts.push({
+            x: cx, y: cy,
+            vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 5,
+            color: COLS[Math.floor(Math.random() * COLS.length)],
+            w: 5 + Math.random() * 6, h: 3 + Math.random() * 3,
+            rot: Math.random() * Math.PI * 2,
+            rotV: (Math.random() - 0.5) * 0.35,
+            opacity: 1, g: 0.2 + Math.random() * 0.15
+          });
+        }
+        if (!raf) draw();
+      };
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = parts.length - 1; i >= 0; i--) {
+          var p = parts[i];
+          p.x += p.vx; p.y += p.vy; p.vy += p.g; p.vx *= 0.985;
+          p.rot += p.rotV; p.opacity -= 0.013;
+          if (p.opacity <= 0) { parts.splice(i, 1); continue; }
+          ctx.save();
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle   = p.color;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        }
+        raf = parts.length ? requestAnimationFrame(draw) : null;
+      }
+
+      // Confetti on submit CTA click (opening the modal)
+      var btn = document.getElementById('os-submit-cta');
+      if (btn) btn.addEventListener('click', function () {
+        var r = btn.getBoundingClientRect();
+        window._confettiBurst(r.left + r.width / 2, r.top + r.height / 2);
+      });
+    })();
+
+    // ── Leaderboard tab switching ──────────────────────────────────
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.lb-panel').forEach(function(p){ p.classList.remove('is-active'); });
+      document.querySelectorAll('.lb-tab').forEach(function(t){ t.classList.remove('is-active'); });
+      document.getElementById('tab-' + tabId).classList.add('is-active');
+      btn.classList.add('is-active');
+    }
+
+    // ── Feed overlay ───────────────────────────────────────────────
+    function openFeed() { document.getElementById('feed-overlay').classList.add('is-open'); }
+    function closeFeed() { document.getElementById('feed-overlay').classList.remove('is-open'); }
+
+    // ── Submit modal ───────────────────────────────────────────────
+    function openSubmit() {
+      goTo('state-choose');
+      document.getElementById('submit-modal').classList.add('is-open');
+    }
+
+    // ── Help modal ─────────────────────────────────────────────────
+    function openHelp() { document.getElementById('help-modal').classList.add('is-open'); }
+
+    function closeModal(id) { document.getElementById(id).classList.remove('is-open'); stopRec(); }
+    function closeIfBg(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+    // ── Submit: save to Supabase + confetti ───────────────────────
+    async function handleFinalSubmit() {
+      var btn = document.getElementById('os-submit-final-btn');
+
+      // Collect extracted fields
+      var fields = document.querySelectorAll('.os-modal__field-val');
+      var whatShipped = fields[0] ? fields[0].textContent.trim() : '';
+      var metric      = fields[1] ? fields[1].textContent.trim() : '';
+      var nextGoal    = fields[2] ? fields[2].textContent.trim() : '';
+      var rawText     = (document.querySelector('.os-modal__textarea') || {}).value || '';
+
+      // Save to Supabase if authenticated
+      var extra = window._currentUpdate || {};
+      var { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        var { error } = await sb.from('weekly_updates').upsert({
+          builder_id:   session.user.id,
+          week:         weekNum,
+          what_shipped: whatShipped,
+          metric:       metric,
+          next_goal:    nextGoal,
+          raw_text:     extra.raw_text   || rawText,
+          honest_flag:  extra.honest_flag || false,
+          needs_text:   extra.needs_text  || '',
+          submitted_at: new Date().toISOString()
+        }, { onConflict: 'builder_id,week' });
+
+        if (error) {
+          console.error('LM OS: submit error', error);
+          // Still close the modal — don't block the user
+        }
+      }
+
+      // Confetti
+      if (btn && window._confettiBurst) {
+        var r = btn.getBoundingClientRect();
+        window._confettiBurst(r.left + r.width / 2, r.top + r.height / 2);
+      }
+      closeModal('submit-modal');
+    }
+
+    // ── AI extraction ──────────────────────────────────────────────
+    // Called by both voice and type paths. Calls the Edge Function,
+    // fills in the extracted fields, then shows the review state.
+    async function extractUpdate(source) {
+      // Get raw text
+      var rawText = '';
+      if (source === 'type') {
+        rawText = (document.getElementById('type-textarea') || {}).value || '';
+        if (!rawText.trim()) return; // don't proceed if empty
+      } else {
+        // Voice: use whatever was in the textarea (placeholder for now;
+        // real voice transcript will be wired in Phase 4b)
+        rawText = (document.getElementById('type-textarea') || {}).value || 'Voice update recorded.';
+      }
+
+      // Show loading state on the button
+      var btnId = source === 'type' ? 'type-extract-btn' : 'voice-extract-btn';
+      var btn   = document.getElementById(btnId);
+      if (btn) { btn.disabled = true; btn.textContent = 'Extracting…'; }
+
+      // Try Edge Function if authenticated; fall back to passthrough
+      var { data: { session } } = await sb.auth.getSession();
+      var extracted = null;
+
+      if (session) {
+        try {
+          var res = await fetch(cfg.supabase.url + '/functions/v1/extract-update', {
+            method:  'POST',
+            headers: {
+              'Content-Type':  'application/json',
+              'Authorization': 'Bearer ' + session.access_token,
+              'apikey':        cfg.supabase.key,
+            },
+            body: JSON.stringify({ raw_text: rawText, week: weekNum }),
+          });
+          if (res.ok) extracted = await res.json();
+        } catch (e) {
+          console.warn('LM OS: extraction Edge Function unavailable, using raw text.', e);
+        }
+      }
+
+      // Reset button
+      if (btn) { btn.disabled = false; btn.textContent = source === 'type' ? 'Extract my update →' : 'Done. Show me what you got →'; }
+
+      // Fill extracted fields (or fall back to raw text)
+      var fields = document.querySelectorAll('.os-modal__field-val');
+      if (extracted && !extracted.error) {
+        if (fields[0]) fields[0].textContent = extracted.what_shipped || rawText.substring(0, 150);
+        if (fields[1]) fields[1].textContent = extracted.metric      || '-';
+        if (fields[2]) fields[2].textContent = extracted.next_goal   || '-';
+        // Store raw + flags for final submit
+        window._currentUpdate = {
+          raw_text:    rawText,
+          honest_flag: !!extracted.honest_flag,
+          needs_text:  extracted.needs_text || ''
+        };
+      } else {
+        // No AI — prefill with raw text so builder can edit manually
+        if (fields[0]) fields[0].textContent = rawText.substring(0, 200);
+        if (fields[1]) fields[1].textContent = '-';
+        if (fields[2]) fields[2].textContent = '-';
+        window._currentUpdate = { raw_text: rawText, honest_flag: false, needs_text: '' };
+      }
+
+      goTo('state-extracted');
+    }
+
+    // ── State machine for submit modal ─────────────────────────────
+    function goTo(id) {
+      document.querySelectorAll('.os-modal__state').forEach(function(s){ s.classList.remove('is-active'); });
+      document.getElementById(id).classList.add('is-active');
+      if (id !== 'state-voice') stopRec();
+    }
+
+    // ── Voice recording ────────────────────────────────────────────
+    var recording = false, recInterval, elapsed = 0;
+    function toggleRec() { recording ? stopRec() : startRec(); }
+    function startRec() {
+      recording = true; elapsed = 0;
+      document.getElementById('record-btn').classList.add('is-recording');
+      document.getElementById('voice-label').textContent = 'recording... tap to stop';
+      recInterval = setInterval(function() {
+        elapsed++;
+        var m = Math.floor(elapsed / 60), s = elapsed % 60;
+        document.getElementById('voice-timer').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      }, 1000);
+    }
+    function stopRec() {
+      if (!recording) return;
+      recording = false; clearInterval(recInterval);
+      document.getElementById('record-btn').classList.remove('is-recording');
+      document.getElementById('voice-label').textContent = 'recording saved, click extract below';
+    }
+
+    // ── Escape key ─────────────────────────────────────────────────
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal('submit-modal');
+        closeModal('help-modal');
+        closeFeed();
+      }
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  SUPABASE DATA LAYER
+    //  Loads after DOMContentLoaded. Falls back to placeholder HTML
+    //  if DB has no data yet (pre-camp / first week).
+    // ═══════════════════════════════════════════════════════════════
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadLiveData();
+    });
+
+    async function loadLiveData() {
+      // Only load real data if we have a session
+      var { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+
+      // Update submission count badge as a quick check
+      updateSubmissionCount();
+
+      // Load all three panels
+      loadShipLog();
+      loadDigest();
+      loadBuilderArcs();
+
+      // Subscribe to live ship log updates
+      subscribeRealtime();
+    }
+
+    // ── Submission count ───────────────────────────────────────────
+    async function updateSubmissionCount() {
+      var { count } = await sb
+        .from('weekly_updates')
+        .select('*', { count: 'exact', head: true })
+        .eq('week', weekNum);
+
+      if (count !== null) {
+        var el = document.getElementById('os-submission-count');
+        if (el) el.textContent = count + ' builder' + (count === 1 ? '' : 's') + ' submitted';
+      }
+    }
+
+    // ── Ship Log ───────────────────────────────────────────────────
+    async function loadShipLog() {
+      var { data, error } = await sb
+        .from('weekly_updates')
+        .select('*, builders(name, project_name, week_streak)')
+        .eq('week', weekNum)
+        .order('submitted_at', { ascending: false })
+        .limit(9);
+
+      if (error || !data || !data.length) return; // keep empty state visible
+
+      var feed = document.querySelector('.lb-feed');
+      if (!feed) return;
+      feed.innerHTML = data.map(renderShipCard).join(''); // replaces empty state
+    }
+
+    function renderShipCard(u) {
+      var b       = u.builders || {};
+      var name    = b.name    || 'Builder';
+      var streak  = b.week_streak || 0;
+      var dots    = '●'.repeat(Math.min(streak, 6));
+      var hoursAgo = Math.round((Date.now() - new Date(u.submitted_at)) / 3600000);
+      var timeStr = hoursAgo < 1   ? 'just now' :
+                    hoursAgo < 24  ? hoursAgo + 'h ago' :
+                    Math.floor(hoursAgo / 24) + 'd ago';
+
+      var cardClass = 'lb-card' +
+        (u.honest_flag ? ' lb-card--honest' : '') +
+        (u.needs_text  ? ' lb-card--needs'  : '');
+
+      var bottomExtra = u.honest_flag
+        ? '<span class="lb-card__honest-tag">honest update</span>'
+        : u.needs_text
+        ? '<span class="lb-card__needs">🤝 needs: ' + esc(u.needs_text) + '</span>'
+        : '';
+
+      return '<div class="' + cardClass + '">' +
+        '<div class="lb-card__top">' +
+          '<div class="lb-card__who">' +
+            '<span class="lb-card__name">' + esc(name) + '</span>' +
+            (dots ? '<span class="lb-card__streak" title="' + streak + '-week streak">' + dots + '</span>' : '') +
+          '</div>' +
+          '<span class="lb-card__time">' + timeStr + '</span>' +
+        '</div>' +
+        '<p class="lb-card__text">' + esc(u.what_shipped) + '</p>' +
+        '<div class="lb-card__bottom">' +
+          '<span class="lb-card__num">' + (u.metric ? esc(u.metric) : '') + '</span>' +
+          bottomExtra +
+        '</div>' +
+      '</div>';
+    }
+
+    // ── AI Digest ──────────────────────────────────────────────────
+    async function loadDigest() {
+      var { data, error } = await sb
+        .from('cohort_digests')
+        .select('*')
+        .eq('week', weekNum)
+        .eq('cohort', cfg.camp.cohort)
+        .maybeSingle();
+
+      if (error || !data) return; // keep empty state visible
+
+      // Show digest content, hide empty state
+      var emptyEl   = document.getElementById('digest-empty');
+      var contentEl = document.getElementById('digest-content');
+      if (emptyEl)   emptyEl.style.display   = 'none';
+      if (contentEl) contentEl.style.display = '';
+
+      // Update pull-quote
+      var sentence = document.getElementById('digest-sentence');
+      if (sentence && data.synthesis) {
+        sentence.innerHTML = '“' + esc(data.synthesis) + '”' +
+          ' <span class="lb-digest__attr">AI synthesis, Sunday 11:59pm</span>';
+      }
+
+      // Render grid cards from JSON arrays
+      renderDigestCard('digest-momentum', data.momentum_json);
+      renderDigestCard('digest-honest',   data.honest_json);
+      renderDigestCard('digest-needs',    data.needs_json);
+      renderDigestCard('digest-breakout', data.breakout_json);
+    }
+
+    function renderDigestCard(id, entries) {
+      var card = document.getElementById(id);
+      if (!card || !Array.isArray(entries) || !entries.length) return;
+
+      var entriesEl = card.querySelector('.lb-digest__entries');
+      if (!entriesEl) return;
+
+      entriesEl.innerHTML = entries.map(function(e) {
+        return '<div class="lb-digest__entry">' +
+          '<span class="lb-digest__entry-name">' + esc(e.name   || '') + '</span>' +
+          '<span class="lb-digest__entry-detail">' + esc(e.detail || '') + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    // ── Builder Arcs ───────────────────────────────────────────────
+    async function loadBuilderArcs() {
+      var { data, error } = await sb
+        .from('weekly_updates')
+        .select('*, builders(name, project_name, week_streak)')
+        .order('builder_id')
+        .order('week');
+
+      if (error || !data || !data.length) return; // keep empty state visible
+
+      // Group by builder
+      var byBuilder = {};
+      data.forEach(function(u) {
+        var bid = u.builder_id;
+        if (!byBuilder[bid]) byBuilder[bid] = [];
+        byBuilder[bid].push(u);
+      });
+
+      var arcs = document.querySelector('.lb-arcs');
+      if (!arcs) return;
+
+      var html = Object.keys(byBuilder).map(function(bid) {
+        return renderArcCard(byBuilder[bid]);
+      }).join('');
+
+      if (html) arcs.innerHTML = html;
+    }
+
+    function renderArcCard(updates) {
+      var b      = (updates[0].builders) || {};
+      var name   = b.name         || 'Builder';
+      var proj   = b.project_name || '';
+      var streak = b.week_streak  || 0;
+      var dots   = '●'.repeat(Math.min(streak, 6));
+
+      // Build sparkline — normalize metric length to height
+      var maxLen = Math.max.apply(null, updates.map(function(u) {
+        return (u.what_shipped || '').length;
+      })) || 1;
+
+      var bars = '';
+      for (var w = 1; w <= 6; w++) {
+        var u = updates.find(function(x) { return x.week === w; });
+        if (!u) {
+          bars += '<div class="lb-arc-bar lb-arc-bar--future"></div>';
+        } else {
+          var h = Math.max(4, Math.round(((u.what_shipped || '').length / maxLen) * 24));
+          var isCurrent = w === weekNum;
+          var isDown    = w > 1 && updates.find(function(x){ return x.week === w-1; }) &&
+                          (u.what_shipped || '').length < ((updates.find(function(x){ return x.week === w-1; }) || {}).what_shipped || '').length * 0.5;
+          var cls = 'lb-arc-bar' +
+            (isCurrent && isDown ? ' lb-arc-bar--current lb-arc-bar--down' :
+             isCurrent           ? ' lb-arc-bar--current' : '');
+          bars += '<div class="' + cls + '" style="height:' + h + 'px" title="Wk ' + w + '"></div>';
+        }
+      }
+
+      // Week rows (shown on expand)
+      var weekRows = updates.map(function(u) {
+        return '<div class="lb-arc-week' + (u.week === weekNum ? ' lb-arc-week--current' : '') + '">' +
+          '<span class="lb-arc-week__n">W' + u.week + '</span>' +
+          '<span class="lb-arc-week__text">' + esc('"' + (u.what_shipped || '').substring(0, 120) + (u.what_shipped && u.what_shipped.length > 120 ? '…' : '') + '"') + '</span>' +
+        '</div>';
+      }).join('');
+
+      return '<div class="lb-arc-card" onclick="this.classList.toggle(\'is-expanded\')">' +
+        '<div class="lb-arc-card__header">' +
+          '<div class="lb-arc-card__who">' +
+            '<span class="lb-arc-card__name">' + esc(name) + '</span>' +
+            (proj ? '<span class="lb-arc-card__project">' + esc(proj) + '</span>' : '') +
+          '</div>' +
+          '<div class="lb-arc-card__spark">' + bars + '</div>' +
+          (dots ? '<span class="lb-arc-card__streak">' + dots + '</span>' : '') +
+        '</div>' +
+        '<div class="lb-arc-card__weeks">' + weekRows + '</div>' +
+      '</div>';
+    }
+
+    // ── Realtime: new submissions slide in ─────────────────────────
+    function subscribeRealtime() {
+      sb.channel('ship-log-' + weekNum)
+        .on('postgres_changes', {
+          event:  'INSERT',
+          schema: 'public',
+          table:  'weekly_updates',
+          filter: 'week=eq.' + weekNum
+        }, async function(payload) {
+          // Fetch the builder profile for the new update
+          var { data: builder } = await sb
+            .from('builders')
+            .select('name, project_name, week_streak')
+            .eq('id', payload.new.builder_id)
+            .single();
+
+          var update = Object.assign({}, payload.new, { builders: builder });
+          var feed = document.querySelector('.lb-feed');
+          if (!feed) return;
+
+          // Remove empty state if still showing
+          var emptyEl = document.getElementById('feed-empty');
+          if (emptyEl) emptyEl.remove();
+
+          // Prepend new card with a fade-in
+          var div = document.createElement('div');
+          div.innerHTML = renderShipCard(update);
+          var card = div.firstChild;
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(-8px)';
+          card.style.transition = 'opacity 0.4s, transform 0.4s';
+          feed.insertBefore(card, feed.firstChild);
+          requestAnimationFrame(function() {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+
+          updateSubmissionCount();
+        })
+        .subscribe();
+    }
+
+    // ── HTML escape helper ─────────────────────────────────────────
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
