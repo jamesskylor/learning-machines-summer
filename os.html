@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Learning Machines OS</title>
-  <meta name="description" content="Learning Machines OS: your hub for the 6-week summer camp." />
+  <meta name="description" content="Learning Machines OS: your hub for the 5-week summer camp." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300..500;1,9..40,300..400&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet" />
@@ -899,7 +899,7 @@
   <!-- ── Week pill ── -->
   <div class="os-week-pill">
     <span class="os-week-pill__dot"></span>
-    <span id="os-week-text">Week 1 of 6 · Idea</span>
+    <span id="os-week-text">Week 1 of 5 · Idea</span>
   </div>
   <div class="os-week-dots" id="os-week-dots" aria-hidden="true"></div>
 
@@ -970,7 +970,7 @@
       <div style="display:flex;align-items:center;gap:1.2rem;">
         <div class="os-feed-overlay__title">
           <div class="os-live-dot" style="width:5px;height:5px;flex-shrink:0;"></div>
-          <span id="os-overlay-week-label">Week 1 of 6</span>
+          <span id="os-overlay-week-label">Week 1 of 5</span>
         </div>
         <span style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:rgba(255,255,255,0.2);" id="os-submission-count">builders submitted</span>
         <div class="lb-tabs">
@@ -1037,7 +1037,7 @@
         <div class="lb-empty-state" id="arcs-empty">
           <div class="lb-empty-state__icon">📈</div>
           <div class="lb-empty-state__title">Arcs build week over week</div>
-          <div class="lb-empty-state__sub">Once builders start submitting updates, their journeys will appear here. Each one a 6-week story in miniature.</div>
+          <div class="lb-empty-state__sub">Once builders start submitting updates, their journeys will appear here. Each one a 5-week story in miniature.</div>
         </div>
 
       </div>
@@ -1178,17 +1178,17 @@
     document.documentElement.classList.add('os-page');
 
     // ── Shared constants ───────────────────────────────────────────
-    var CAMP_START  = new Date('2026-07-20T00:00:00-04:00');
+    var CAMP_START  = new Date('2026-08-01T00:00:00-04:00');
     var THEMES      = ['Idea', 'Build', 'Ship', 'Iterate', 'Polish', 'Demo Day'];
     var MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
     var now         = new Date();
     var weekNum     = Math.floor((now - CAMP_START) / MS_PER_WEEK) + 1;
-    weekNum         = Math.max(1, Math.min(6, weekNum));
+    weekNum         = Math.max(1, Math.min(5, weekNum));
 
     // ── Week pill ──────────────────────────────────────────────────
     (function () {
       var el = document.getElementById('os-week-text');
-      if (el) el.textContent = 'Week ' + weekNum + ' of 6 · ' + THEMES[weekNum - 1];
+      if (el) el.textContent = 'Week ' + weekNum + ' of 5 · ' + THEMES[weekNum - 1];
     })();
 
     // ── Week progress dots ─────────────────────────────────────────
@@ -1206,7 +1206,7 @@
 
     // ── Dynamic week label in overlay + modal ──────────────────────
     (function () {
-      var wLabel = 'Week ' + weekNum + ' of 6';
+      var wLabel = 'Week ' + weekNum + ' of 5';
       var wShort = '/ Week ' + weekNum + ' update';
       var wFinal = 'Submit week ' + weekNum + ' update →';
 
@@ -1674,7 +1674,7 @@
       })) || 1;
 
       var bars = '';
-      for (var w = 1; w <= 6; w++) {
+      for (var w = 1; w <= 5; w++) {
         var u = updates.find(function(x) { return x.week === w; });
         if (!u) {
           bars += '<div class="lb-arc-bar lb-arc-bar--future"></div>';

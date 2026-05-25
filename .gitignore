@@ -19,3 +19,9 @@ _serve.py
 
 # Old mockup (not needed in production)
 os-mockup.html
+
+# Claude Code internals
+.claude/
+
+# Supabase CLI temp files
+supabase/.temp/

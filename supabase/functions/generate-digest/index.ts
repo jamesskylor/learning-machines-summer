@@ -46,10 +46,10 @@ serve(async (req) => {
 
     // If week not provided, auto-calculate from camp start
     if (!week) {
-      const CAMP_START   = new Date('2026-07-20T00:00:00-04:00')
+      const CAMP_START   = new Date('2026-08-01T00:00:00-04:00')
       const MS_PER_WEEK  = 7 * 24 * 60 * 60 * 1000
       week = Math.floor((Date.now() - CAMP_START.getTime()) / MS_PER_WEEK) + 1
-      week = Math.max(1, Math.min(6, week))
+      week = Math.max(1, Math.min(5, week))
     }
 
     console.log(`Generating digest for week ${week}, cohort ${cohort}`)
@@ -94,7 +94,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model:      'claude-sonnet-4-5',
         max_tokens: 1500,
-        system: `You are the AI editor for Learning Machines, a 6-week summer camp where builders ship their first AI product. Every Sunday night you synthesize the cohort's weekly updates into a digest.
+        system: `You are the AI editor for Learning Machines, a 5-week summer camp where builders ship their first AI product. Every Sunday night you synthesize the cohort's weekly updates into a digest.
 
 Return ONLY valid JSON — no markdown, no extra text — with this exact shape:
 

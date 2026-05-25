@@ -13,9 +13,9 @@ window.LM_CONFIG = {
 
   // ── Camp calendar ─────────────────────────────────────────────
   camp: {
-    start:  '2026-07-20T00:00:00-04:00',  // Monday Week 1 opens
+    start:  '2026-08-01T00:00:00-04:00',  // Saturday Week 1 opens
     cohort: '2026',
-    themes: ['Idea', 'Build', 'Ship', 'Iterate', 'Polish', 'Demo Day']
+    themes: ['Ideas & Build', 'Launch', 'Feedback & Iterate', 'Growth & Monetization', 'Demo Day']
   },
 
   // ── Auth ──────────────────────────────────────────────────────
