@@ -15,7 +15,7 @@ window.LM_CONFIG = {
   camp: {
     start:  '2026-08-01T00:00:00-04:00',  // Saturday Week 1 opens
     cohort: '2026',
-    themes: ['Ideas & Build', 'Launch', 'Feedback & Iterate', 'Growth & Monetization', 'Demo Day']
+    themes: ['Building Ideas', 'Launch', 'Feedback & Iterate', 'Growth & Monetization', 'Demo Day']
   },
 
   // ── Auth ──────────────────────────────────────────────────────
@@ -38,7 +38,7 @@ window.LM_CONFIG = {
   links: {
     announcement: 'https://ANNOUNCEMENT-URL',   // Notion / Substack post
     lecture:      'https://LECTURE-URL',         // YouTube / Loom
-    guestTalk:    'https://GUEST-TALK-URL',      // YouTube / Zoom recording
+    officeHours:  'https://OFFICE-HOURS-URL',    // Zoom / Google Meet link
     resources:    'https://RESOURCES-URL',       // Notion / Google Drive
     discord:      'https://DISCORD-INVITE-URL'   // Discord server invite
   }
