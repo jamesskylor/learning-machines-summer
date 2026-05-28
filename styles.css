@@ -1144,11 +1144,12 @@ body[data-nav-color="cream"] .top-meta {
   justify-content: space-between;
   gap: 1.5rem;
   padding: 1.15rem 0;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   text-align: left;
   color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Instrument Serif', 'Newsreader', Georgia, serif;
   font-weight: 400;
+  letter-spacing: -0.01em;
   transition: color 0.2s;
 }
 
@@ -1183,9 +1184,10 @@ body[data-nav-color="cream"] .top-meta {
   overflow: hidden;
   transition: max-height 0.4s ease, padding 0.4s ease;
   color: rgba(20, 24, 26, 0.65);
-  line-height: 1.7;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.96rem;
+  line-height: 1.65;
+  font-family: 'Instrument Serif', 'Newsreader', Georgia, serif;
+  font-size: 1.05rem;
+  letter-spacing: -0.008em;
 }
 
 .faq__item[aria-expanded="true"] .faq__a {
@@ -1585,8 +1587,10 @@ body[data-nav-color="cream"] .top-meta {
 .subpage__inner p,
 .subpage__inner li {
   color: var(--ink-soft);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-family: 'Instrument Serif', 'Newsreader', Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  letter-spacing: -0.008em;
 }
 
 .subpage__inner p {
