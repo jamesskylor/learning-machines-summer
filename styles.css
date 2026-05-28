@@ -857,13 +857,21 @@ body[data-nav-color="cream"] .top-meta {
 
 .story-card__caption {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   padding: 0.85rem 1rem;
-  background: linear-gradient(0deg, transparent, rgba(0, 0, 0, 0.75));
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.85));
   font-size: 0.82rem;
   line-height: 1.35;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Vertical marquee (GIFs) — caption sits at the top */
+.story-column .story-card__caption {
+  top: 0;
+  bottom: auto;
+  background: linear-gradient(0deg, transparent, rgba(0, 0, 0, 0.75));
   color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
 }
