@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────
-//  Learning Machines OS — Central Configuration
+//  OffSeason OS — Central Configuration
 //  Edit this file each week to update links and settings.
 // ─────────────────────────────────────────────────────────────────
 

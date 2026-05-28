@@ -1,5 +1,5 @@
 /* ============================================================
-   Learning Machines Summer Engineering — interactions
+   OffSeason — interactions
    ============================================================ */
 
 (function () {

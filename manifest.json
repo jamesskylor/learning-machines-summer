@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Learning Machines OS",
+  "name": "OffSeason OS",
   "short_name": "LM OS",
   "version": "1.0.0",
-  "description": "Your daily hub for the Learning Machines summer camp. Replace every new tab with your OS.",
+  "description": "Your daily hub for OffSeason. Replace every new tab with your OS.",
 
   "chrome_url_overrides": {
     "newtab": "os.html"

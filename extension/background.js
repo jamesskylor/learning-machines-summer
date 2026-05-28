@@ -1,4 +1,4 @@
-// Learning Machines OS — background service worker.
+// OffSeason OS — background service worker.
 //
 // Chrome handles `chrome_url_overrides.newtab` (defined in manifest.json) for
 // the standard new-tab shortcut. This listener catches the edge case where a

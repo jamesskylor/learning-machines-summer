@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Learning Machines OS",
+  "name": "OffSeason OS",
   "short_name": "LM OS",
-  "description": "Replace every new tab with your Learning Machines OS — your daily hub for the 6-week camp.",
+  "description": "Replace every new tab with your OffSeason OS — your daily hub for the 5-week program.",
   "version": "1.0.0",
 
   "chrome_url_overrides": {
@@ -31,7 +31,7 @@
       "48":  "assets/48.png",
       "128": "assets/128.png"
     },
-    "default_title": "Learning Machines OS"
+    "default_title": "OffSeason OS"
   },
 
   "background": {
