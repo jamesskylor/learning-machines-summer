@@ -29,7 +29,7 @@ window.LM_CONFIG = {
     get redirectTo() {
       return window.location.hostname === 'localhost'
         ? 'http://localhost:8766/login'          // local dev
-        : 'https://learningmachines.xyz/login';  // production (Vercel)
+        : 'https://offseason.school/login';  // production (Vercel)
     }
   },
 
