@@ -867,13 +867,10 @@ body[data-nav-color="cream"] .top-meta {
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* Vertical marquee (GIFs) — caption sits at the bottom */
+/* Vertical marquee (GIFs) — slightly bolder caption, position inherited from base */
 .story-column .story-card__caption {
-  bottom: 0;
-  top: auto;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.85));
-  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* GIFs are already animated — skip the ken-burns pan/zoom */
