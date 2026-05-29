@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────
-//  OffSeason OS — Central Configuration
+//  Summer Camp OS — Central Configuration
 //  Edit this file each week to update links and settings.
 // ─────────────────────────────────────────────────────────────────
 
@@ -29,7 +29,7 @@ window.LM_CONFIG = {
     get redirectTo() {
       return window.location.hostname === 'localhost'
         ? 'http://localhost:8766/login'          // local dev
-        : 'https://offseason.school/login';  // production (Vercel)
+        : 'https://summer.skylorlane.com/login';  // production (Vercel)
     }
   },
 

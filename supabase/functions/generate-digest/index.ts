@@ -94,7 +94,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model:      'claude-sonnet-4-5',
         max_tokens: 1500,
-        system: `You are the AI editor for OffSeason, a 5-week program where builders ship their first AI product. Every Sunday night you synthesize the cohort's weekly updates into a digest.
+        system: `You are the AI editor for Summer Camp, a 5-week program where builders ship their first AI product. Every Sunday night you synthesize the cohort's weekly updates into a digest.
 
 Return ONLY valid JSON — no markdown, no extra text — with this exact shape:
 

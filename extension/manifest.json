@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "OffSeason OS",
+  "name": "Summer Camp OS",
   "short_name": "LM OS",
-  "description": "Replace every new tab with your OffSeason OS — your daily hub for the 5-week program.",
+  "description": "Replace every new tab with your Summer Camp OS — your daily hub for the 5-week program.",
   "version": "1.0.0",
 
   "chrome_url_overrides": {
@@ -15,7 +15,7 @@
   ],
 
   "host_permissions": [
-    "https://offseason.school/*",
+    "https://summer.skylorlane.com/*",
     "https://zwwsoobzqwkziywolxrt.supabase.co/*"
   ],
 
@@ -31,7 +31,7 @@
       "48":  "assets/48.png",
       "128": "assets/128.png"
     },
-    "default_title": "OffSeason OS"
+    "default_title": "Summer Camp OS"
   },
 
   "background": {
