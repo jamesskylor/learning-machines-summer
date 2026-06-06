@@ -588,10 +588,7 @@ body[data-nav-color="cream"] .top-meta {
     align-items: stretch;
   }
   .hero__tag {
-    width: calc(100% - var(--pad-x) * 2);
-    right: var(--pad-x);
-    text-align: left;
-    bottom: 3vh;
+    display: none;
   }
   .hero__title {
     top: 16vh;
